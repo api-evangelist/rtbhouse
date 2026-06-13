@@ -1,0 +1,22 @@
+name: RTB House Plans and Pricing
+description: RTB House does not publish standard tiered pricing plans. Pricing is customized based on campaign objectives, audience size, contract terms, and advertising spend. The platform uses a dynamic Cost per Click (dCPC) model with real-time bidding.
+url: https://www.rtbhouse.com
+plans:
+  - name: Custom Campaign
+    description: Tailored pricing for advertisers based on campaign goals, audience size, and market. Supports retargeting, acquisition, quality traffic, and demand generation campaigns. Contact RTB House for a quote.
+    pricingModel: Custom / dCPC
+    channels:
+      - Display
+      - Video
+      - Mobile
+      - MobileVideo
+    features:
+      - Deep learning-powered optimization
+      - First-party data activation
+      - Dynamic product ads
+      - A/B testing
+      - Campaign analytics
+      - Audience segmentation
+      - API access
+    contact: https://www.rtbhouse.com/contact
+notes: RTB House does not publicly list plan tiers or fixed pricing. All pricing is negotiated directly with the RTB House sales team based on advertiser requirements and spend levels.

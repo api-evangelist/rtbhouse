@@ -1,0 +1,34 @@
+name: RTB House FinOps
+description: Financial operations guidance for RTB House advertising campaigns. RTB House uses a dynamic Cost per Click (dCPC) pricing model with real-time bidding. Budget management and spend optimization are handled through the campaign management API and the client panel.
+url: https://www.rtbhouse.com
+pricingModel: Dynamic Cost per Click (dCPC)
+billingApi:
+  endpoint: /advertisers/{hash}/billing
+  description: Retrieve billing information for a specific advertiser via the RTB House API v5
+  url: https://api.panel.rtbhouse.com/v5/advertisers/{hash}/billing
+costOptimization:
+  - strategy: Deep Learning Bid Optimization
+    description: RTB House uses proprietary deep learning algorithms to automatically optimize bids in real time, reducing wasted spend and improving ROI.
+  - strategy: First-Party Data Activation
+    description: Use first-party audience data to target high-intent users, improving conversion rates and lowering effective cost per acquisition.
+  - strategy: Campaign Analytics Monitoring
+    description: Use the statistics endpoints (rtb-stats, summary-stats, win-rate-stats, top-hosts-stats) to monitor campaign performance and adjust budgets accordingly.
+  - strategy: Deduplication Tracking
+    description: Use the rtb-deduplication-stats endpoint to avoid double-counting conversions and ensure accurate cost-per-conversion calculations.
+apiEndpointsForFinOps:
+  - path: /advertisers/{hash}/billing
+    method: GET
+    description: Retrieve billing data for an advertiser
+  - path: /advertisers/{hash}/rtb-stats
+    method: GET
+    description: Detailed RTB performance statistics for spend analysis
+  - path: /advertisers/{hash}/summary-stats
+    method: GET
+    description: Summary statistics for overall campaign cost and performance
+  - path: /advertisers/{hash}/win-rate-stats
+    method: GET
+    description: Win rate statistics to understand bid competitiveness vs cost
+  - path: /advertisers/{hash}/rate-cards
+    method: GET
+    description: Retrieve rate card data for pricing reference
+notes: RTB House does not publish public pricing tiers. All budget and billing arrangements are negotiated directly. The API provides billing and statistics endpoints for programmatic spend monitoring and FinOps automation.

@@ -1,0 +1,25 @@
+name: RTB House API Rate Limits
+description: RTB House API v5 rate limit details are not publicly documented. The API is a REST interface available at https://api.panel.rtbhouse.com/v5/ and is accessed by authenticated advertisers. Rate limits are enforced server-side and details are provided to clients upon onboarding.
+url: https://api.panel.rtbhouse.com/api/docs
+api:
+  version: v5
+  baseUrl: https://api.panel.rtbhouse.com/v5
+rateLimits:
+  - scope: General
+    limit: Not publicly specified
+    notes: The RTB House Python SDK documentation mentions being aware of rate limits and response times when making multiple requests. Specific numeric thresholds are not disclosed publicly. Contact RTB House support for per-account limits.
+authentication:
+  schemes:
+    - type: Basic
+      description: HTTP Basic authentication with username and password credentials
+    - type: Bearer
+      description: Bearer token authentication with automatic token rotation support via the SDK's ApiTokenManager
+  tokenRotation:
+    supported: true
+    description: The Python SDK provides an ApiTokenManager class for automatic token lifecycle management, including rotation when the token enters its rotation window.
+sdks:
+  - language: Python
+    url: https://github.com/rtbhouse-apps/rtbhouse-python-sdk
+  - language: PHP
+    url: https://github.com/rtbhouse-apps/rtbhouse-php-sdk
+notes: For specific rate limit thresholds, refer to the official API documentation at https://api.panel.rtbhouse.com/api/docs or contact RTB House developer support.
