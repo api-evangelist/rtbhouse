@@ -1,0 +1,37 @@
+{
+  "status": "ok",
+  "data": [
+    {
+      "day": "2024-01-15",
+      "campaignCost": 1250.75,
+      "impsCount": 45000,
+      "ecpm": 27.79,
+      "clicksCount": 320,
+      "ecpc": 3.91,
+      "ctr": 0.0071,
+      "conversionsCount": 18,
+      "ecpa": 69.49,
+      "cr": 0.0563,
+      "conversionsValue": 3600.00,
+      "roas": 2.88,
+      "userFrequency": 3.2,
+      "userReach": 14063
+    },
+    {
+      "day": "2024-01-16",
+      "campaignCost": 1380.50,
+      "impsCount": 52000,
+      "ecpm": 26.55,
+      "clicksCount": 410,
+      "ecpc": 3.37,
+      "ctr": 0.0079,
+      "conversionsCount": 22,
+      "ecpa": 62.75,
+      "cr": 0.0537,
+      "conversionsValue": 4400.00,
+      "roas": 3.19,
+      "userFrequency": 3.5,
+      "userReach": 14857
+    }
+  ]
+}

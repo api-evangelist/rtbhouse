@@ -1,0 +1,50 @@
+{
+  "status": "ok",
+  "data": {
+    "hash": "abc123def456",
+    "status": "ACTIVE",
+    "name": "Example Brand Inc.",
+    "currency": "USD",
+    "url": "https://www.examplebrand.com",
+    "createdAt": "2023-01-15T10:00:00Z",
+    "version": "v5",
+    "feedIdentifier": "feed-xyz-001",
+    "country": "US",
+    "features": {
+      "enabled": ["RTB", "BRANDING"],
+      "countConvention": {
+        "RTB": [
+          {
+            "value": "ATTRIBUTED",
+            "hidden": false,
+            "text": "Attributed Conversions"
+          },
+          {
+            "value": "POST_VIEW",
+            "hidden": false,
+            "text": "Post View Conversions"
+          }
+        ]
+      }
+    },
+    "featuresGroup": [
+      {
+        "enabled": ["RETARGETING"],
+        "campaignType": "PERFORMANCE"
+      }
+    ],
+    "properties": {
+      "minimalCpc": 0.05,
+      "maximalCpc": 2.50,
+      "campaignType": "PERFORMANCE",
+      "contactPerson": [
+        {
+          "login": "jsmith",
+          "email": "jsmith@examplebrand.com",
+          "name": "John Smith"
+        }
+      ],
+      "isArchived": false
+    }
+  }
+}

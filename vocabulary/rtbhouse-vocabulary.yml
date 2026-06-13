@@ -1,0 +1,93 @@
+vocabulary:
+  - term: advertiser
+    definition: A brand or company that manages advertising campaigns through the RTB House platform. Identified by a unique hash string.
+
+  - term: hash
+    definition: A unique alphanumeric identifier used for advertisers, campaigns, creatives, and conversions within the RTB House API.
+
+  - term: campaign
+    definition: An advertising campaign under an advertiser account, associated with a rate card and containing creatives. Can be PERFORMANCE or BRANDING type.
+
+  - term: campaignType
+    definition: Specifies the business objective of a campaign. PERFORMANCE campaigns optimize for conversions; BRANDING campaigns optimize for reach and awareness.
+
+  - term: subcampaign
+    definition: A subdivision of a campaign, also referred to by its hash. Used to filter statistics and creatives at a more granular level.
+
+  - term: rateCard
+    definition: A pricing structure that defines CPC, CPM, CPA, and CPS rates across visitor segments (visitors, shoppers, buyers). Each campaign references a rate card by its ID.
+
+  - term: creative
+    definition: An RTB creative unit (e.g. banner, dynamic product ad) associated with a campaign. Contains name hierarchy (family, business, packBusiness) and preview dimensions.
+
+  - term: countConvention
+    definition: The method used to count conversions. Options are ATTRIBUTED (last-touch), POST_VIEW, ALL_POST_CLICK, or ALL_CONVERSIONS.
+
+  - term: userSegment
+    definition: Classification of users based on their purchase intent. Segments include VISITORS, SHOPPERS, BUYERS, and NEW.
+
+  - term: offer
+    definition: A product from the advertiser's feed, represented with identifier, price, currency, category, images, and status.
+
+  - term: offerCategory
+    definition: A grouping of product offers, characterized by a category identifier, name, and count of active offers.
+
+  - term: conversion
+    definition: A tracked user action (e.g., purchase) attributed to an RTB House campaign. Contains conversion value, commission, time, and attribution data.
+
+  - term: billing
+    definition: Financial transaction record for an advertiser account, including credit, debit, balance, and operation type per day.
+
+  - term: rtbStats
+    definition: Detailed performance metrics for RTB campaigns, queryable by groupBy dimensions (day, subcampaign, deviceType, etc.) and metrics (impressions, clicks, conversions, ROAS, etc.).
+
+  - term: summaryStats
+    definition: Aggregated performance statistics across campaigns, supporting fewer groupBy dimensions than rtbStats but covering key performance metrics.
+
+  - term: winRateStats
+    definition: Statistics tracking the ratio of auction wins to total bids, reported per day.
+
+  - term: topHostsStats
+    definition: Ranking of publisher website domains by impressions or clicks delivered within a date range.
+
+  - term: topInAppsStats
+    definition: Ranking of mobile applications by impressions or clicks delivered within a date range.
+
+  - term: rtbDeduplicationStats
+    definition: Statistics on conversion deduplication, showing how conversions are attributed after removing duplicates across attribution windows.
+
+  - term: lastSeenTagsStats
+    definition: Statistics on the most recent tracking tag activity, showing impression and click counts by last seen hour.
+
+  - term: DSP
+    definition: Demand-Side Platform. RTB House operates as a DSP, allowing advertisers to purchase digital ad inventory in real-time through auctions.
+
+  - term: RTB
+    definition: Real-Time Bidding. An auction mechanism where ad impressions are bought and sold programmatically in milliseconds.
+
+  - term: deepLearning
+    definition: RTB House's proprietary artificial intelligence technology used to optimize bidding strategies and audience targeting for retargeting campaigns.
+
+  - term: retargeting
+    definition: An advertising strategy that re-engages users who have previously visited an advertiser's website or interacted with their products.
+
+  - term: impressions
+    definition: The number of times an advertisement is displayed to a user, counted as impsCount in the API.
+
+  - term: ecpm
+    definition: Effective Cost Per Mille (thousand impressions). A metric representing the average cost per 1,000 ad impressions.
+
+  - term: ecpc
+    definition: Effective Cost Per Click. A metric representing the average cost paid per click.
+
+  - term: ctr
+    definition: Click-Through Rate. The ratio of clicks to impressions, expressed as a decimal.
+
+  - term: roas
+    definition: Return On Ad Spend. The ratio of conversion value to campaign cost, measuring advertising efficiency.
+
+  - term: ecpa
+    definition: Effective Cost Per Acquisition. The average cost to achieve one conversion.
+
+  - term: token
+    definition: An authentication bearer token issued to API clients for accessing the RTB House API. Tokens can be rotated via the /tokens/current/rotate endpoint.

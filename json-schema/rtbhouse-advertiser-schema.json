@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.panel.rtbhouse.com/v5/schemas/advertiser",
+  "title": "Advertiser",
+  "description": "RTB House advertiser object representing a brand or company running advertising campaigns.",
+  "type": "object",
+  "required": ["hash", "status", "name", "currency", "url", "createdAt", "features"],
+  "properties": {
+    "hash": {
+      "type": "string",
+      "description": "Unique hash identifier for the advertiser."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["PAUSED", "NEW", "ACTIVE", "READY"],
+      "description": "Current status of the advertiser."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the advertiser."
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code used for billing and budgets (e.g., USD, EUR)."
+    },
+    "url": {
+      "type": "string",
+      "description": "URL of the advertiser's website."
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Timestamp when the advertiser was created."
+    },
+    "version": {
+      "type": "string",
+      "deprecated": true,
+      "description": "Deprecated version field."
+    },
+    "feedIdentifier": {
+      "type": "string",
+      "description": "Identifier for the product feed associated with the advertiser."
+    },
+    "country": {
+      "type": "string",
+      "description": "Country code of the advertiser."
+    },
+    "features": {
+      "type": "object",
+      "description": "Feature flags and configurations for this advertiser.",
+      "properties": {
+        "enabled": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of enabled feature names."
+        },
+        "countConvention": {
+          "type": "object",
+          "properties": {
+            "RTB": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "enum": ["ATTRIBUTED", "POST_VIEW", "ALL_POST_CLICK", "ALL_CONVERSIONS"]
+                  },
+                  "hidden": { "type": "boolean" },
+                  "text": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "featuresGroup": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["enabled", "campaignType"],
+        "properties": {
+          "enabled": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "campaignType": {
+            "type": "string",
+            "enum": ["PERFORMANCE", "BRANDING"]
+          }
+        }
+      }
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "minimalCpc": { "type": "number", "format": "float" },
+        "maximalCpc": { "type": "number", "format": "float" },
+        "contactPerson": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "login": { "type": "string" },
+              "email": { "type": "string" },
+              "name": { "type": "string" }
+            }
+          }
+        },
+        "campaignType": {
+          "type": "string",
+          "enum": ["BRANDING", "PERFORMANCE"]
+        },
+        "isArchived": { "type": "boolean" },
+        "permissions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Only present for client users."
+        }
+      }
+    }
+  }
+}

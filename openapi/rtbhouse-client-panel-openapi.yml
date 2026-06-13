@@ -1,0 +1,1852 @@
+openapi: 3.0.0
+info:
+  title: Client's panel API docs
+  version: v5
+  description: |
+    RTB House Client Panel REST API for managing advertisers, campaigns, product offers, audiences,
+    RTB creatives, conversions, and accessing performance statistics. Supports campaign management,
+    billing retrieval, and detailed analytics including RTB stats, win-rate stats, top hosts, and
+    deduplication stats.
+
+    Authentication scheme types:
+    | Security Scheme Type      | HTTP   |
+    | ------------------------- | ------ |
+    | HTTP Authorization Scheme | Basic  |
+    | HTTP Authorization Scheme | Bearer |
+
+servers:
+  - url: https://api.panel.rtbhouse.com/v5
+
+tags:
+  - name: Advertisers
+  - name: Statistics
+  - name: User
+  - name: Tokens
+  - name: Dev
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    basicAuth:
+      type: http
+      scheme: basic
+  parameters:
+    advertiserHash:
+      name: hash
+      in: path
+      description: Hash of advertiser.
+      required: true
+      schema:
+        type: string
+    dayFromInQS:
+      name: dayFrom
+      in: query
+      description: Date in format "YYYY-MM-DD".
+      required: true
+      schema:
+        type: string
+    dayToInQS:
+      name: dayTo
+      in: query
+      description: Date in format "YYYY-MM-DD".
+      required: true
+      schema:
+        type: string
+    campaignHash:
+      name: campaignHash
+      in: path
+      description: Campaign hash.
+      required: true
+      schema:
+        type: string
+    subcampaigns:
+      name: subcampaigns
+      in: query
+      description: Hash of subcampaign. Multiple values may be concatenated using "-".
+      required: false
+      schema:
+        type: string
+
+security:
+  - basicAuth: []
+  - bearerAuth: []
+
+paths:
+  /healthcheck:
+    get:
+      summary: Check server status
+      tags:
+        - Dev
+      security: []
+      responses:
+        "200":
+          description: Return SUCCESS string.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "SUCCESS"
+
+  /user/info:
+    get:
+      summary: Get details about authenticated user
+      tags:
+        - User
+      responses:
+        "200":
+          description: User details.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: object
+                    required:
+                      - hashId
+                      - login
+                      - email
+                      - isClientUser
+                      - isDemoUser
+                      - permissions
+                    properties:
+                      hashId:
+                        type: string
+                      login:
+                        type: string
+                      email:
+                        type: string
+                      isClientUser:
+                        type: boolean
+                      isDemoUser:
+                        type: boolean
+                      permissions:
+                        type: array
+                        items:
+                          type: string
+
+  /tokens/current/rotate:
+    post:
+      summary: Rotate current API token
+      tags:
+        - Tokens
+      responses:
+        "200":
+          description: New API token.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: object
+                    required:
+                      - token
+                      - expiresAt
+                    properties:
+                      token:
+                        type: string
+                      expiresAt:
+                        type: string
+                        format: date-time
+
+  /advertisers:
+    get:
+      summary: Get list of advertisers
+      tags:
+        - Advertisers
+      parameters:
+        - name: fields
+          description: List of top level fields to include in response. Multiple values may be concatenated using ",".
+          in: query
+          schema:
+            type: string
+        - name: isArchived
+          description: Returned only archived/not archived advertisers.
+          in: query
+          schema:
+            type: boolean
+        - name: limit
+          description: Limit the number of returned advertisers.
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: List of advertisers.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - hash
+                        - status
+                        - name
+                        - currency
+                        - url
+                        - createdAt
+                        - features
+                        - properties
+                      properties:
+                        hash:
+                          type: string
+                        status:
+                          type: string
+                          enum:
+                            - PAUSED
+                            - NEW
+                            - ACTIVE
+                            - READY
+                        name:
+                          type: string
+                        currency:
+                          type: string
+                        url:
+                          type: string
+                        createdAt:
+                          type: string
+                        features:
+                          type: object
+                          properties:
+                            enabled:
+                              type: array
+                              items:
+                                type: string
+                            countConvention:
+                              type: object
+                              properties:
+                                RTB:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      value:
+                                        type: string
+                                        enum:
+                                          - ATTRIBUTED
+                                          - POST_VIEW
+                                          - ALL_POST_CLICK
+                                          - ALL_CONVERSIONS
+                                      hidden:
+                                        type: boolean
+                                      text:
+                                        type: string
+                        properties:
+                          type: object
+                          properties:
+                            campaignType:
+                              type: string
+                              enum:
+                                - PERFORMANCE
+                                - BRANDING
+                            isArchived:
+                              type: boolean
+                            permissions:
+                              type: array
+                              description: Only if requested by a user who is a client user.
+                              items:
+                                type: string
+
+  /advertisers/{hash}:
+    get:
+      summary: Get advertiser details
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+      responses:
+        "200":
+          description: Advertiser details.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: object
+                    required:
+                      - hash
+                      - status
+                      - name
+                      - currency
+                      - url
+                      - properties
+                      - createdAt
+                      - version
+                      - feedIdentifier
+                      - country
+                      - features
+                      - featuresGroup
+                    properties:
+                      hash:
+                        type: string
+                      status:
+                        type: string
+                        enum:
+                          - PAUSED
+                          - NEW
+                          - ACTIVE
+                          - READY
+                      name:
+                        type: string
+                      currency:
+                        type: string
+                      url:
+                        type: string
+                      properties:
+                        type: object
+                        properties:
+                          minimalCpc:
+                            type: number
+                            format: float
+                          maximalCpc:
+                            type: number
+                            format: float
+                          contactPerson:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                login:
+                                  type: string
+                                email:
+                                  type: string
+                                name:
+                                  type: string
+                          campaignType:
+                            type: string
+                            enum:
+                              - BRANDING
+                              - PERFORMANCE
+                      createdAt:
+                        type: string
+                      version:
+                        type: string
+                        deprecated: true
+                      feedIdentifier:
+                        type: string
+                      country:
+                        type: string
+                      features:
+                        type: object
+                        properties:
+                          enabled:
+                            type: array
+                            items:
+                              type: string
+                          countConvention:
+                            type: object
+                            properties:
+                              RTB:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    value:
+                                      type: string
+                                      enum:
+                                        - ATTRIBUTED
+                                        - POST_VIEW
+                                        - ALL_POST_CLICK
+                                        - ALL_CONVERSIONS
+                                    hidden:
+                                      type: boolean
+                                    text:
+                                      type: string
+                      featuresGroup:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - enabled
+                            - campaignType
+                          properties:
+                            enabled:
+                              type: array
+                              items:
+                                type: string
+                            campaignType:
+                              type: string
+                              enum:
+                                - PERFORMANCE
+                                - BRANDING
+
+  /advertisers/{hash}/status:
+    put:
+      summary: Update advertiser status
+      description: Update advertiser status to ACTIVE or PAUSED. Putting isActive as True will make advertiser's status change to ACTIVE, otherwise status will change to PAUSED.
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - isActive
+              properties:
+                isActive:
+                  type: boolean
+      responses:
+        "200":
+          description: Updated advertiser details.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: object
+                    required:
+                      - hash
+                      - status
+                      - name
+                      - currency
+                      - url
+                      - properties
+                      - createdAt
+                      - version
+                      - feedIdentifier
+                      - country
+                      - features
+                    properties:
+                      hash:
+                        type: string
+                      status:
+                        type: string
+                        enum:
+                          - PAUSED
+                          - NEW
+                          - ACTIVE
+                          - READY
+                      name:
+                        type: string
+                      currency:
+                        type: string
+                      url:
+                        type: string
+                      properties:
+                        type: object
+                        properties:
+                          minimalCpc:
+                            type: number
+                            format: float
+                          maximalCpc:
+                            type: number
+                            format: float
+                          contactPerson:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                login:
+                                  type: string
+                                email:
+                                  type: string
+                                name:
+                                  type: string
+                          campaignType:
+                            type: string
+                            enum:
+                              - BRANDING
+                              - PERFORMANCE
+                      createdAt:
+                        type: string
+                      version:
+                        type: string
+                        deprecated: true
+                      feedIdentifier:
+                        type: string
+                      country:
+                        type: string
+                      features:
+                        type: object
+                        properties:
+                          enabled:
+                            type: array
+                            items:
+                              type: string
+                          countConvention:
+                            type: object
+                            properties:
+                              RTB:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    value:
+                                      type: string
+                                      enum:
+                                        - ATTRIBUTED
+                                        - POST_VIEW
+                                        - ALL_POST_CLICK
+                                        - ALL_CONVERSIONS
+                                    hidden:
+                                      type: boolean
+                                    text:
+                                      type: string
+
+  /advertisers/{hash}/client:
+    get:
+      summary: Get client details
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+      responses:
+        "200":
+          description: Client invoicing details.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: object
+                    required:
+                      - invoicing
+                    properties:
+                      invoicing:
+                        type: object
+                        description: If client is not found this property is an empty dictionary, otherwise this property contains all of the following properties.
+                        properties:
+                          vat_number:
+                            type: string
+                          company_name:
+                            type: string
+                          street1:
+                            type: string
+                          street2:
+                            type: string
+                          postal_code:
+                            type: string
+                          city:
+                            type: string
+                          country:
+                            type: string
+                          email:
+                            type: string
+
+  /advertisers/{hash}/offer-categories:
+    get:
+      summary: Get list of offer categories
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+      responses:
+        "200":
+          description: List of offer categories.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - categoryId
+                        - identifier
+                        - name
+                        - activeOffersNumber
+                      properties:
+                        categoryId:
+                          type: string
+                        identifier:
+                          type: string
+                        name:
+                          type: string
+                        activeOffersNumber:
+                          type: integer
+
+  /advertisers/{hash}/offers:
+    get:
+      summary: Get list of offers
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - name: name
+          in: query
+          schema:
+            type: string
+        - name: categoryIds
+          description: Category ids filter. Multiple values may be concatenated using ",".
+          in: query
+          schema:
+            type: string
+        - name: identifiers
+          description: Offer identifier filter. Multiple values may be concatenated using ",".
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: How many rows should be returned at most.
+          schema:
+            type: integer
+            default: 1000
+            minimum: 1
+            maximum: 10000
+      responses:
+        "200":
+          description: List of offers.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - url
+                        - fullName
+                        - identifier
+                        - id
+                        - images
+                        - price
+                        - currency
+                        - name
+                        - categoryName
+                        - customProperties
+                        - updatedAt
+                        - status
+                      properties:
+                        url:
+                          type: string
+                        fullName:
+                          type: string
+                        identifier:
+                          type: string
+                        id:
+                          type: string
+                        images:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              added:
+                                type: string
+                              width:
+                                type: string
+                              updated:
+                                type: string
+                              url:
+                                type: string
+                              hash:
+                                type: string
+                              height:
+                                type: string
+                              etag:
+                                type: string
+                        price:
+                          type: number
+                        currency:
+                          type: string
+                        name:
+                          type: string
+                        categoryName:
+                          type: string
+                        customProperties:
+                          type: object
+                        updatedAt:
+                          type: string
+                        status:
+                          type: string
+                          enum:
+                            - ACTIVE
+                            - PAUSED
+
+  /advertisers/{hash}/campaigns:
+    get:
+      summary: Get list of campaigns
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - name: excludeArchived
+          in: query
+          schema:
+            type: boolean
+          default: false
+      responses:
+        "200":
+          description: List of campaigns.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - hash
+                        - name
+                        - creativeIds
+                        - status
+                        - campaignType
+                        - updatedAt
+                        - rateCardId
+                        - isEditable
+                      properties:
+                        hash:
+                          type: string
+                        name:
+                          type: string
+                        creativeIds:
+                          type: array
+                          items:
+                            type: integer
+                        status:
+                          type: string
+                          enum:
+                            - PAUSED
+                            - NEW
+                            - ACTIVE
+                            - READY
+                        campaignType:
+                          type: string
+                          enum:
+                            - PERFORMANCE
+                            - BRANDING
+                        updatedAt:
+                          type: string
+                        rateCardId:
+                          type: string
+                          description: Rate card hash.
+                        isEditable:
+                          type: boolean
+                        advertiserLimits:
+                          type: object
+                          description: Permission to read campaign budget limits is required.
+                          required:
+                            - budgetDaily
+                            - budgetMonthly
+                          properties:
+                            budgetDaily:
+                              type: number
+                              format: float
+                            budgetMonthly:
+                              type: number
+                              format: float
+
+  /advertisers/{hash}/campaigns/{campaignHash}/status:
+    put:
+      summary: Update campaign status
+      description: Update campaign status to ACTIVE or PAUSED. Putting isActive as True will make campaign's status change to ACTIVE, otherwise status will change to PAUSED.
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - $ref: '#/components/parameters/campaignHash'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - isActive
+              properties:
+                isActive:
+                  type: boolean
+      responses:
+        "200":
+          description: Updated campaign status.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: object
+
+  /advertisers/{hash}/billing:
+    get:
+      summary: Get list of bills
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - name: dayFrom
+          in: query
+          description: Date in format "YYYY-MM-DD".
+          required: false
+          schema:
+            type: string
+        - name: dayTo
+          in: query
+          description: Date in format "YYYY-MM-DD".
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Billing records.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: object
+                    required:
+                      - bills
+                      - initialBalance
+                    properties:
+                      bills:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - day
+                            - operation
+                            - position
+                            - credit
+                            - debit
+                            - balance
+                            - recordNumber
+                          properties:
+                            day:
+                              type: string
+                              format: date
+                            operation:
+                              type: string
+                            position:
+                              type: integer
+                            credit:
+                              type: number
+                              format: float
+                            debit:
+                              type: number
+                              format: float
+                            balance:
+                              type: number
+                              format: float
+                            recordNumber:
+                              type: integer
+                      initialBalance:
+                        type: number
+                        format: float
+
+  /advertisers/{hash}/rtb-creatives:
+    get:
+      summary: Get list of RTB creatives
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - name: subcampaigns
+          in: query
+          description: By default, this means downloading all creatives. If the "ANY" value is given as a parameter, creatives that are pinned to any sub-campaigns (paused or active) will be selected. If "ACTIVE" is specified, creatives that are pinned to any active sub-campaigns will be selected. You can also enter campaign hashes. Multiple hash values can be combined using the "-" sign.
+          schema:
+            type: string
+          required: false
+        - name: activeOnly
+          in: query
+          description: Should return only active creatives.
+          schema:
+            type: boolean
+            default: true
+      responses:
+        "200":
+          description: List of RTB creatives.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - status
+                        - hash
+                        - names
+                        - previews
+                      properties:
+                        hash:
+                          type: string
+                        status:
+                          type: string
+                        names:
+                          type: object
+                          required:
+                            - packBusiness
+                            - business
+                            - family
+                          properties:
+                            packBusiness:
+                              type: string
+                              nullable: true
+                            business:
+                              type: string
+                              nullable: true
+                            family:
+                              type: string
+                              nullable: true
+                        previews:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                              - width
+                              - height
+                              - offersNumber
+                              - previewUrl
+                            properties:
+                              width:
+                                type: integer
+                              height:
+                                type: integer
+                              offersNumber:
+                                type: integer
+                              previewUrl:
+                                type: string
+
+  /advertisers/{hash}/conversions:
+    get:
+      summary: Get list of conversions
+      description: This endpoint accepts two types of queries. The first type of query is a query that includes all parameters except the cursor parameter. The result of such a query is a list of conversions and a cursor. Then, to ask for another list of conversions, you need to create a query containing cursor (the cursor returned from the previous query) and optionally limit parameter.
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - name: cursor
+          in: query
+          description: Cursor returned with previous response.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: How many rows should be returned at most.
+          schema:
+            type: integer
+            default: 1000
+        - $ref: '#/components/parameters/dayFromInQS'
+        - $ref: '#/components/parameters/dayToInQS'
+        - name: countConvention
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - ATTRIBUTED
+              - POST_VIEW
+              - ALL_POST_CLICK
+              - ALL_CONVERSIONS
+        - $ref: '#/components/parameters/subcampaigns'
+        - name: conversionIdentifier
+          in: query
+          schema:
+            type: string
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            enum:
+              - conversionTime
+              - conversionValue
+              - commissionValue
+              - lastClickTime
+              - lastImpressionTime
+            default: conversionTime
+        - name: sortDirection
+          in: query
+          schema:
+            type: string
+            enum:
+              - DESC
+              - ASC
+            default: DESC
+      responses:
+        "200":
+          description: List of conversions with pagination cursor.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: object
+                    required:
+                      - rows
+                      - total
+                    properties:
+                      nextCursor:
+                        description: Cursor can be used for fetching next portion of rows.
+                        type: string
+                      total:
+                        description: Total number of rows to fetch.
+                        type: integer
+                      rows:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - commissionValue
+                            - conversionHash
+                            - conversionIdentifier
+                            - conversionTime
+                            - conversionValue
+                            - cookieHash
+                            - lastClickTime
+                            - lastImpressionTime
+                          properties:
+                            commissionValue:
+                              type: number
+                            conversionHash:
+                              type: string
+                            conversionIdentifier:
+                              type: string
+                            conversionClass:
+                              type: string
+                            conversionTime:
+                              type: string
+                            conversionValue:
+                              type: number
+                            cookieHash:
+                              type: string
+                            lastClickTime:
+                              type: string
+                            lastImpressionTime:
+                              type: string
+
+  /advertisers/{hash}/rtb-stats:
+    get:
+      summary: Get RTB stats
+      tags:
+        - Statistics
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - $ref: '#/components/parameters/dayFromInQS'
+        - $ref: '#/components/parameters/dayToInQS'
+        - name: groupBy
+          description: Stats grouping. Multiple values may be concatenated using "-". Not all combinations are possible.
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - hour
+              - day
+              - week
+              - month
+              - quarter
+              - year
+              - advertiser
+              - subcampaign
+              - userSegment
+              - deviceType
+              - creative
+              - creativeNamesPackBusiness
+              - creativeNamesBusiness
+              - category
+              - country
+        - name: metrics
+          description: Metrics to load. Multiple values may be concatenated using "-". Not all combinations are possible.
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - campaignCost
+              - impsCount
+              - ecpm
+              - clicksCount
+              - ecpc
+              - ctr
+              - conversionsCount
+              - ecpa
+              - cr
+              - conversionsValue
+              - roas
+              - ecps
+              - videoCompleteViews
+              - ecpv
+              - vcr
+              - audioCompleteListens
+              - ecpl
+              - acr
+              - viewabilityMeasurability
+              - viewabilityViewability
+              - evcpm
+              - sspViewability
+              - userFrequency
+              - userReach
+              - visitsCount
+              - cpvisit
+        - name: countConvention
+          description: Conversions counting convention. Required only if any conversion-related metrics is selected.
+          in: query
+          schema:
+            type: string
+            enum:
+              - ATTRIBUTED
+              - POST_VIEW
+              - ALL_POST_CLICK
+              - ALL_CONVERSIONS
+        - name: utcOffsetHours
+          description: UTC offset (in hours) for date range / time related dimensions. Non-zero value reduces number of possible dimensions. Missing value defaults to 0.
+          in: query
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/subcampaigns'
+        - name: userSegments
+          description: User segments filter. Multiple values may be concatenated using "-".
+          in: query
+          schema:
+            type: string
+            enum:
+              - VISITORS
+              - SHOPPERS
+              - BUYERS
+              - NEW
+        - name: deviceTypes
+          description: Device type filter. Only one device type allowed.
+          in: query
+          schema:
+            type: string
+            enum:
+              - PC
+              - MOBILE
+              - PHONE
+              - TABLET
+              - TV
+              - GAME_CONSOLE
+              - OTHER
+              - UNKNOWN
+        - name: creativeNamesFamilies
+          description: Creative names families filter. Multiple values may be concatenated using "-".
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: RTB statistics data.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    description: Each element is generated according to selected groupBy.
+                    items:
+                      type: object
+                      description: Object contains selected groupBy fields + selected metric fields.
+
+  /advertisers/{hash}/summary-stats:
+    get:
+      summary: Get summary stats
+      tags:
+        - Statistics
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - $ref: '#/components/parameters/dayFromInQS'
+        - $ref: '#/components/parameters/dayToInQS'
+        - name: groupBy
+          description: Stats grouping. Multiple values may be concatenated using "-". Not all combinations are possible.
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - day
+              - week
+              - month
+              - quarter
+              - year
+              - advertiser
+              - subcampaign
+              - deviceType
+        - name: metrics
+          description: Metrics to load. Multiple values may be concatenated using "-". Not all combinations are possible.
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - campaignCost
+              - impsCount
+              - ecpm
+              - clicksCount
+              - ecpc
+              - ctr
+              - conversionsCount
+              - ecpa
+              - cr
+              - conversionsValue
+              - roas
+              - ecps
+        - name: countConvention
+          description: Conversions counting convention. Required only if any conversion-related metrics is selected.
+          in: query
+          schema:
+            type: string
+            enum:
+              - ATTRIBUTED
+              - POST_VIEW
+              - ALL_POST_CLICK
+              - ALL_CONVERSIONS
+        - name: utcOffsetHours
+          description: UTC offset (in hours) for date range / time related dimensions.
+          in: query
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/subcampaigns'
+        - name: deviceTypes
+          description: Device type filter. Only one device type allowed.
+          in: query
+          schema:
+            type: string
+            enum:
+              - PC
+              - MOBILE
+              - PHONE
+              - TABLET
+              - TV
+              - GAME_CONSOLE
+              - OTHER
+              - UNKNOWN
+      responses:
+        "200":
+          description: Summary statistics data.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    description: Each element is generated according to selected groupBy.
+                    items:
+                      type: object
+                      description: Object contains selected groupBy fields + selected metric fields.
+
+  /advertisers-summary-stats:
+    get:
+      summary: Get summary stats for multiple advertisers
+      tags:
+        - Statistics
+      parameters:
+        - name: advertisers
+          description: Advertisers filter. Hash of advertiser. Multiple values may be concatenated using ",".
+          in: query
+          schema:
+            type: string
+        - name: campaignType
+          description: Type of campaign to filter advertisers by. Advertisers belonging to different types cannot be fetched at once.
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - PERFORMANCE
+              - BRANDING
+        - name: dayFrom
+          in: query
+          description: Date in format "YYYY-MM-DD".
+          required: true
+          schema:
+            type: string
+        - name: dayTo
+          in: query
+          description: Date in format "YYYY-MM-DD".
+          required: true
+          schema:
+            type: string
+        - name: groupBy
+          description: Stats grouping. Multiple values may be concatenated using "-". Not all combinations are possible.
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - hour
+              - day
+              - week
+              - month
+              - quarter
+              - year
+              - advertiser
+              - subcampaign
+              - userSegment
+              - deviceType
+              - creative
+              - creativeNamesPackBusiness
+              - creativeNamesBusiness
+              - category
+              - country
+        - name: metrics
+          description: Metrics to load. Multiple values may be concatenated using "-". Not all combinations are possible, availability depends on campaign type.
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - campaignCost
+              - impsCount
+              - ecpm
+              - clicksCount
+              - ecpc
+              - ctr
+              - conversionsCount
+              - ecpa
+              - cr
+              - conversionsValue
+              - roas
+              - ecps
+              - videoCompleteViews
+              - ecpv
+              - vcr
+              - audioCompleteListens
+              - ecpl
+              - acr
+              - viewabilityMeasurability
+              - viewabilityViewability
+              - evcpm
+              - sspViewability
+              - userFrequency
+              - userReach
+              - visitsCount
+              - cpvisit
+        - name: countConvention
+          description: Conversions counting convention. Required only if any conversion-related metrics is selected.
+          in: query
+          schema:
+            type: string
+            enum:
+              - ATTRIBUTED
+              - POST_VIEW
+              - ALL_POST_CLICK
+              - ALL_CONVERSIONS
+        - name: utcOffsetHours
+          description: UTC offset (in hours) for date range / time related dimensions.
+          in: query
+          schema:
+            type: integer
+        - name: currency
+          description: Currency to retrieve financial data in. Required only if advertisers with different native currencies are requested.
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/subcampaigns'
+        - name: userSegments
+          description: User segments filter. Multiple values may be concatenated using "-". Availability depends on campaign type.
+          in: query
+          schema:
+            type: string
+            enum:
+              - VISITORS
+              - SHOPPERS
+              - BUYERS
+              - NEW
+        - name: deviceTypes
+          description: Device type filter. Only one device type allowed.
+          in: query
+          schema:
+            type: string
+            enum:
+              - PC
+              - MOBILE
+              - PHONE
+              - TABLET
+              - TV
+              - GAME_CONSOLE
+              - OTHER
+              - UNKNOWN
+      responses:
+        "200":
+          description: Summary statistics for multiple advertisers.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    description: Each element is generated according to selected groupBy.
+                    items:
+                      type: object
+                      description: Object contains selected groupBy fields + selected metric fields.
+
+  /advertisers/{hash}/rate-cards:
+    get:
+      summary: Get list of rate cards
+      tags:
+        - Advertisers
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+      responses:
+        "200":
+          description: Rate card details.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: object
+                    required:
+                      - id
+                      - version
+                      - cpc
+                      - cpm
+                      - cpaPostClick
+                      - cpaPostView
+                      - cpsPostClick
+                      - cpsPostView
+                    properties:
+                      id:
+                        type: string
+                      version:
+                        type: string
+                        deprecated: true
+                      cpc:
+                        type: object
+                        required:
+                          - visitors
+                          - shoppers
+                          - buyers
+                        properties:
+                          visitors:
+                            type: number
+                          shoppers:
+                            type: number
+                          buyers:
+                            type: number
+                      cpm:
+                        type: object
+                        required:
+                          - visitors
+                          - shoppers
+                          - buyers
+                        properties:
+                          visitors:
+                            type: number
+                          shoppers:
+                            type: number
+                          buyers:
+                            type: number
+                      cpaPostClick:
+                        type: object
+                        required:
+                          - visitors
+                          - shoppers
+                          - buyers
+                        properties:
+                          visitors:
+                            type: number
+                          shoppers:
+                            type: number
+                          buyers:
+                            type: number
+                      cpaPostView:
+                        type: object
+                        required:
+                          - visitors
+                          - shoppers
+                          - buyers
+                        properties:
+                          visitors:
+                            type: number
+                          shoppers:
+                            type: number
+                          buyers:
+                            type: number
+                      cpsPostClick:
+                        type: object
+                        required:
+                          - visitors
+                          - shoppers
+                          - buyers
+                        properties:
+                          visitors:
+                            type: number
+                          shoppers:
+                            type: number
+                          buyers:
+                            type: number
+                      cpsPostView:
+                        type: object
+                        required:
+                          - visitors
+                          - shoppers
+                          - buyers
+                        properties:
+                          visitors:
+                            type: number
+                          shoppers:
+                            type: number
+                          buyers:
+                            type: number
+
+  /advertisers/{hash}/last-seen-tags-stats:
+    get:
+      summary: Get last seen tags stats
+      tags:
+        - Statistics
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - $ref: '#/components/parameters/dayFromInQS'
+        - $ref: '#/components/parameters/dayToInQS'
+        - $ref: '#/components/parameters/subcampaigns'
+      responses:
+        "200":
+          description: Last seen tags stats.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - lastTagHour
+                        - impsCount
+                        - clicksCount
+                      properties:
+                        lastTagHour:
+                          type: string
+                        impsCount:
+                          type: object
+                        clicksCount:
+                          type: object
+
+  /advertisers/{hash}/win-rate-stats:
+    get:
+      summary: Get win rate stats
+      tags:
+        - Statistics
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - $ref: '#/components/parameters/dayFromInQS'
+        - $ref: '#/components/parameters/dayToInQS'
+        - $ref: '#/components/parameters/subcampaigns'
+      responses:
+        "200":
+          description: Win rate statistics.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - day
+                        - won
+                        - total
+                      properties:
+                        day:
+                          type: string
+                          format: date
+                        won:
+                          type: number
+                        total:
+                          type: number
+
+  /advertisers/{hash}/top-hosts-stats:
+    get:
+      summary: Get top hosts stats
+      tags:
+        - Statistics
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - $ref: '#/components/parameters/dayFromInQS'
+        - $ref: '#/components/parameters/dayToInQS'
+        - $ref: '#/components/parameters/subcampaigns'
+        - name: rankedBy
+          in: query
+          description: IMPS or CLICKS.
+          required: true
+          schema:
+            type: string
+            enum:
+              - IMPS
+              - CLICKS
+      responses:
+        "200":
+          description: Top hosts statistics ranked by impressions or clicks.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - host
+                        - value
+                      properties:
+                        host:
+                          type: string
+                        value:
+                          type: number
+
+  /advertisers/{hash}/top-in-apps-stats:
+    get:
+      summary: Get top in apps stats
+      tags:
+        - Statistics
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - $ref: '#/components/parameters/dayFromInQS'
+        - $ref: '#/components/parameters/dayToInQS'
+        - $ref: '#/components/parameters/subcampaigns'
+        - name: rankedBy
+          in: query
+          description: IMPS or CLICKS.
+          required: true
+          schema:
+            type: string
+            enum:
+              - IMPS
+              - CLICKS
+      responses:
+        "200":
+          description: Top in-app statistics ranked by impressions or clicks.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - appName
+                        - value
+                      properties:
+                        appName:
+                          type: string
+                        value:
+                          type: number
+
+  /advertisers/{hash}/rtb-deduplication-stats:
+    get:
+      summary: Get RTB deduplication stats
+      tags:
+        - Statistics
+      parameters:
+        - $ref: '#/components/parameters/advertiserHash'
+        - $ref: '#/components/parameters/dayFromInQS'
+        - $ref: '#/components/parameters/dayToInQS'
+        - $ref: '#/components/parameters/subcampaigns'
+        - name: groupBy
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - day
+              - week
+              - month
+              - quarter
+              - year
+              - subcampaign
+              - userSegment
+        - name: userSegments
+          description: User segments filter. Multiple values may be concatenated using "-". Availability depends on campaign type.
+          in: query
+          schema:
+            type: string
+            enum:
+              - VISITORS
+              - SHOPPERS
+              - BUYERS
+              - NEW
+      responses:
+        "200":
+          description: RTB deduplication statistics.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  data:
+                    type: array
+                    description: Each element is generated according to selected groupBy.
+                    items:
+                      type: object
+                      description: Object contains selected groupBy fields + stats fields.

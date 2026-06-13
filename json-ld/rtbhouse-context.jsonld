@@ -1,0 +1,243 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "rtbhouse": "https://api.panel.rtbhouse.com/v5/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Advertiser": "rtbhouse:Advertiser",
+    "Campaign": "rtbhouse:Campaign",
+    "Creative": "rtbhouse:Creative",
+    "Offer": "rtbhouse:Offer",
+    "OfferCategory": "rtbhouse:OfferCategory",
+    "Conversion": "rtbhouse:Conversion",
+    "BillingRecord": "rtbhouse:BillingRecord",
+    "RateCard": "rtbhouse:RateCard",
+    "RtbStats": "rtbhouse:RtbStats",
+    "WinRateStats": "rtbhouse:WinRateStats",
+    "User": "rtbhouse:User",
+
+    "hash": {
+      "@id": "rtbhouse:hash",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "rtbhouse:status",
+      "@type": "xsd:string"
+    },
+    "currency": {
+      "@id": "schema:currency",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "country": {
+      "@id": "schema:addressCountry",
+      "@type": "xsd:string"
+    },
+    "feedIdentifier": {
+      "@id": "rtbhouse:feedIdentifier",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "schema:email",
+      "@type": "xsd:string"
+    },
+    "campaignType": {
+      "@id": "rtbhouse:campaignType",
+      "@type": "xsd:string"
+    },
+    "rateCardId": {
+      "@id": "rtbhouse:rateCardId",
+      "@type": "xsd:string"
+    },
+    "isEditable": {
+      "@id": "rtbhouse:isEditable",
+      "@type": "xsd:boolean"
+    },
+    "isArchived": {
+      "@id": "rtbhouse:isArchived",
+      "@type": "xsd:boolean"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "price": {
+      "@id": "schema:price",
+      "@type": "xsd:float"
+    },
+    "identifier": {
+      "@id": "schema:identifier",
+      "@type": "xsd:string"
+    },
+    "categoryName": {
+      "@id": "schema:category",
+      "@type": "xsd:string"
+    },
+    "conversionValue": {
+      "@id": "rtbhouse:conversionValue",
+      "@type": "xsd:float"
+    },
+    "conversionTime": {
+      "@id": "rtbhouse:conversionTime",
+      "@type": "xsd:dateTime"
+    },
+    "commissionValue": {
+      "@id": "rtbhouse:commissionValue",
+      "@type": "xsd:float"
+    },
+    "conversionIdentifier": {
+      "@id": "rtbhouse:conversionIdentifier",
+      "@type": "xsd:string"
+    },
+    "countConvention": {
+      "@id": "rtbhouse:countConvention",
+      "@type": "xsd:string"
+    },
+    "impsCount": {
+      "@id": "rtbhouse:impsCount",
+      "@type": "xsd:integer"
+    },
+    "clicksCount": {
+      "@id": "rtbhouse:clicksCount",
+      "@type": "xsd:integer"
+    },
+    "campaignCost": {
+      "@id": "rtbhouse:campaignCost",
+      "@type": "xsd:float"
+    },
+    "ecpm": {
+      "@id": "rtbhouse:ecpm",
+      "@type": "xsd:float"
+    },
+    "ecpc": {
+      "@id": "rtbhouse:ecpc",
+      "@type": "xsd:float"
+    },
+    "ctr": {
+      "@id": "rtbhouse:ctr",
+      "@type": "xsd:float"
+    },
+    "conversionsCount": {
+      "@id": "rtbhouse:conversionsCount",
+      "@type": "xsd:integer"
+    },
+    "ecpa": {
+      "@id": "rtbhouse:ecpa",
+      "@type": "xsd:float"
+    },
+    "roas": {
+      "@id": "rtbhouse:roas",
+      "@type": "xsd:float"
+    },
+    "credit": {
+      "@id": "rtbhouse:credit",
+      "@type": "xsd:float"
+    },
+    "debit": {
+      "@id": "rtbhouse:debit",
+      "@type": "xsd:float"
+    },
+    "balance": {
+      "@id": "rtbhouse:balance",
+      "@type": "xsd:float"
+    },
+    "day": {
+      "@id": "rtbhouse:day",
+      "@type": "xsd:date"
+    },
+    "login": {
+      "@id": "rtbhouse:login",
+      "@type": "xsd:string"
+    },
+    "isClientUser": {
+      "@id": "rtbhouse:isClientUser",
+      "@type": "xsd:boolean"
+    },
+    "isDemoUser": {
+      "@id": "rtbhouse:isDemoUser",
+      "@type": "xsd:boolean"
+    },
+    "permissions": {
+      "@id": "rtbhouse:permissions",
+      "@container": "@list"
+    },
+    "token": {
+      "@id": "rtbhouse:token",
+      "@type": "xsd:string"
+    },
+    "expiresAt": {
+      "@id": "rtbhouse:expiresAt",
+      "@type": "xsd:dateTime"
+    },
+    "won": {
+      "@id": "rtbhouse:won",
+      "@type": "xsd:float"
+    },
+    "total": {
+      "@id": "rtbhouse:total",
+      "@type": "xsd:float"
+    },
+    "host": {
+      "@id": "rtbhouse:host",
+      "@type": "xsd:string"
+    },
+    "appName": {
+      "@id": "rtbhouse:appName",
+      "@type": "xsd:string"
+    },
+    "previewUrl": {
+      "@id": "rtbhouse:previewUrl",
+      "@type": "@id"
+    },
+    "width": {
+      "@id": "schema:width",
+      "@type": "xsd:integer"
+    },
+    "height": {
+      "@id": "schema:height",
+      "@type": "xsd:integer"
+    },
+    "cpc": {
+      "@id": "rtbhouse:cpc"
+    },
+    "cpm": {
+      "@id": "rtbhouse:cpm"
+    },
+    "cpaPostClick": {
+      "@id": "rtbhouse:cpaPostClick"
+    },
+    "cpaPostView": {
+      "@id": "rtbhouse:cpaPostView"
+    },
+    "cpsPostClick": {
+      "@id": "rtbhouse:cpsPostClick"
+    },
+    "cpsPostView": {
+      "@id": "rtbhouse:cpsPostView"
+    },
+    "visitors": {
+      "@id": "rtbhouse:visitors",
+      "@type": "xsd:float"
+    },
+    "shoppers": {
+      "@id": "rtbhouse:shoppers",
+      "@type": "xsd:float"
+    },
+    "buyers": {
+      "@id": "rtbhouse:buyers",
+      "@type": "xsd:float"
+    }
+  }
+}
