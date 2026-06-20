@@ -2,7 +2,7 @@ aid: rtbhouse
 name: RTB House
 description: RTB House is a next-generation performance demand-side platform (DSP) that uses proprietary deep learning algorithms to power retargeting and programmatic advertising campaigns. The platform provides a REST API for managing advertisers, campaigns, product feeds, audiences, RTB creatives, conversions, and accessing detailed performance analytics. RTB House operates in 90+ markets and serves thousands of leading brands worldwide.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/rtbhouse/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -18,7 +18,7 @@ tags:
 apis:
   - name: RTB House Client Panel API
     description: REST API for managing RTB House advertising campaigns, advertisers, product offers, audiences, RTB creatives, conversions, and accessing performance statistics. Supports campaign management, billing retrieval, and detailed analytics including RTB stats, win-rate stats, top hosts, and deduplication stats.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://api.panel.rtbhouse.com/api/docs
     baseURL: https://api.panel.rtbhouse.com/v5
     tags:
