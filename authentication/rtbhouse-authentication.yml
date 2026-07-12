@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/rtbhouse-client-panel-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/rtbhouse-client-panel-openapi.yml
+- name: basicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/rtbhouse-client-panel-openapi.yml

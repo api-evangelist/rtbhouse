@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.rtbhouse.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 26 19:45:38 2026 GMT
+  hsts: false
+- host: api.panel.rtbhouse.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 24 08:17:07 2026 GMT
+  hsts: null
+domains:
+- domain: rtbhouse.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
