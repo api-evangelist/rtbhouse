@@ -2,13 +2,11 @@
   "repo": "rtbhouse",
   "feeds": [
     {
-      "source": "https://www.rtbhouse.com/blog",
-      "feed_url": "",
-      "saved": 0,
-      "method": "agent-scrape"
+      "source": "https://www.linkedin.com/company/rtb-house",
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T13:06:41Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 6,
-  "agent_pulled": "2026-06-27"
+  "agent_pulled": "2026-07-04"
 }
