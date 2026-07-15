@@ -35,6 +35,8 @@ apis:
       - type: ReDoc
         url: https://api.panel.rtbhouse.com/api/redoc
 common:
+  - type: AgenticAccess
+    url: agentic-access/rtbhouse-agentic-access.yml
   - type: DomainSecurity
     url: security/rtbhouse-domain-security.yml
   - type: Authentication
