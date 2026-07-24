@@ -1,0 +1,673 @@
+openapi: 3.0.0
+info:
+  title: Client's panel API docs Advertisers Statistics API
+  version: v5
+  description: 'RTB House Client Panel REST API for managing advertisers, campaigns, product offers, audiences,
+
+    RTB creatives, conversions, and accessing performance statistics. Supports campaign management,
+
+    billing retrieval, and detailed analytics including RTB stats, win-rate stats, top hosts, and
+
+    deduplication stats.
+
+
+    Authentication scheme types:
+
+    | Security Scheme Type      | HTTP   |
+
+    | ------------------------- | ------ |
+
+    | HTTP Authorization Scheme | Basic  |
+
+    | HTTP Authorization Scheme | Bearer |
+
+    '
+servers:
+- url: https://api.panel.rtbhouse.com/v5
+security:
+- basicAuth: []
+- bearerAuth: []
+tags:
+- name: Statistics
+paths:
+  /advertisers/{hash}/rtb-stats:
+    get:
+      summary: Get RTB stats
+      tags:
+      - Statistics
+      parameters:
+      - $ref: '#/components/parameters/advertiserHash'
+      - $ref: '#/components/parameters/dayFromInQS'
+      - $ref: '#/components/parameters/dayToInQS'
+      - name: groupBy
+        description: Stats grouping. Multiple values may be concatenated using "-". Not all combinations are possible.
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          - advertiser
+          - subcampaign
+          - userSegment
+          - deviceType
+          - creative
+          - creativeNamesPackBusiness
+          - creativeNamesBusiness
+          - category
+          - country
+      - name: metrics
+        description: Metrics to load. Multiple values may be concatenated using "-". Not all combinations are possible.
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - campaignCost
+          - impsCount
+          - ecpm
+          - clicksCount
+          - ecpc
+          - ctr
+          - conversionsCount
+          - ecpa
+          - cr
+          - conversionsValue
+          - roas
+          - ecps
+          - videoCompleteViews
+          - ecpv
+          - vcr
+          - audioCompleteListens
+          - ecpl
+          - acr
+          - viewabilityMeasurability
+          - viewabilityViewability
+          - evcpm
+          - sspViewability
+          - userFrequency
+          - userReach
+          - visitsCount
+          - cpvisit
+      - name: countConvention
+        description: Conversions counting convention. Required only if any conversion-related metrics is selected.
+        in: query
+        schema:
+          type: string
+          enum:
+          - ATTRIBUTED
+          - POST_VIEW
+          - ALL_POST_CLICK
+          - ALL_CONVERSIONS
+      - name: utcOffsetHours
+        description: UTC offset (in hours) for date range / time related dimensions. Non-zero value reduces number of possible dimensions. Missing value defaults to 0.
+        in: query
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/subcampaigns'
+      - name: userSegments
+        description: User segments filter. Multiple values may be concatenated using "-".
+        in: query
+        schema:
+          type: string
+          enum:
+          - VISITORS
+          - SHOPPERS
+          - BUYERS
+          - NEW
+      - name: deviceTypes
+        description: Device type filter. Only one device type allowed.
+        in: query
+        schema:
+          type: string
+          enum:
+          - PC
+          - MOBILE
+          - PHONE
+          - TABLET
+          - TV
+          - GAME_CONSOLE
+          - OTHER
+          - UNKNOWN
+      - name: creativeNamesFamilies
+        description: Creative names families filter. Multiple values may be concatenated using "-".
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: RTB statistics data.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  data:
+                    type: array
+                    description: Each element is generated according to selected groupBy.
+                    items:
+                      type: object
+                      description: Object contains selected groupBy fields + selected metric fields.
+  /advertisers/{hash}/summary-stats:
+    get:
+      summary: Get summary stats
+      tags:
+      - Statistics
+      parameters:
+      - $ref: '#/components/parameters/advertiserHash'
+      - $ref: '#/components/parameters/dayFromInQS'
+      - $ref: '#/components/parameters/dayToInQS'
+      - name: groupBy
+        description: Stats grouping. Multiple values may be concatenated using "-". Not all combinations are possible.
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          - advertiser
+          - subcampaign
+          - deviceType
+      - name: metrics
+        description: Metrics to load. Multiple values may be concatenated using "-". Not all combinations are possible.
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - campaignCost
+          - impsCount
+          - ecpm
+          - clicksCount
+          - ecpc
+          - ctr
+          - conversionsCount
+          - ecpa
+          - cr
+          - conversionsValue
+          - roas
+          - ecps
+      - name: countConvention
+        description: Conversions counting convention. Required only if any conversion-related metrics is selected.
+        in: query
+        schema:
+          type: string
+          enum:
+          - ATTRIBUTED
+          - POST_VIEW
+          - ALL_POST_CLICK
+          - ALL_CONVERSIONS
+      - name: utcOffsetHours
+        description: UTC offset (in hours) for date range / time related dimensions.
+        in: query
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/subcampaigns'
+      - name: deviceTypes
+        description: Device type filter. Only one device type allowed.
+        in: query
+        schema:
+          type: string
+          enum:
+          - PC
+          - MOBILE
+          - PHONE
+          - TABLET
+          - TV
+          - GAME_CONSOLE
+          - OTHER
+          - UNKNOWN
+      responses:
+        '200':
+          description: Summary statistics data.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  data:
+                    type: array
+                    description: Each element is generated according to selected groupBy.
+                    items:
+                      type: object
+                      description: Object contains selected groupBy fields + selected metric fields.
+  /advertisers-summary-stats:
+    get:
+      summary: Get summary stats for multiple advertisers
+      tags:
+      - Statistics
+      parameters:
+      - name: advertisers
+        description: Advertisers filter. Hash of advertiser. Multiple values may be concatenated using ",".
+        in: query
+        schema:
+          type: string
+      - name: campaignType
+        description: Type of campaign to filter advertisers by. Advertisers belonging to different types cannot be fetched at once.
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - PERFORMANCE
+          - BRANDING
+      - name: dayFrom
+        in: query
+        description: Date in format "YYYY-MM-DD".
+        required: true
+        schema:
+          type: string
+      - name: dayTo
+        in: query
+        description: Date in format "YYYY-MM-DD".
+        required: true
+        schema:
+          type: string
+      - name: groupBy
+        description: Stats grouping. Multiple values may be concatenated using "-". Not all combinations are possible.
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          - advertiser
+          - subcampaign
+          - userSegment
+          - deviceType
+          - creative
+          - creativeNamesPackBusiness
+          - creativeNamesBusiness
+          - category
+          - country
+      - name: metrics
+        description: Metrics to load. Multiple values may be concatenated using "-". Not all combinations are possible, availability depends on campaign type.
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - campaignCost
+          - impsCount
+          - ecpm
+          - clicksCount
+          - ecpc
+          - ctr
+          - conversionsCount
+          - ecpa
+          - cr
+          - conversionsValue
+          - roas
+          - ecps
+          - videoCompleteViews
+          - ecpv
+          - vcr
+          - audioCompleteListens
+          - ecpl
+          - acr
+          - viewabilityMeasurability
+          - viewabilityViewability
+          - evcpm
+          - sspViewability
+          - userFrequency
+          - userReach
+          - visitsCount
+          - cpvisit
+      - name: countConvention
+        description: Conversions counting convention. Required only if any conversion-related metrics is selected.
+        in: query
+        schema:
+          type: string
+          enum:
+          - ATTRIBUTED
+          - POST_VIEW
+          - ALL_POST_CLICK
+          - ALL_CONVERSIONS
+      - name: utcOffsetHours
+        description: UTC offset (in hours) for date range / time related dimensions.
+        in: query
+        schema:
+          type: integer
+      - name: currency
+        description: Currency to retrieve financial data in. Required only if advertisers with different native currencies are requested.
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/subcampaigns'
+      - name: userSegments
+        description: User segments filter. Multiple values may be concatenated using "-". Availability depends on campaign type.
+        in: query
+        schema:
+          type: string
+          enum:
+          - VISITORS
+          - SHOPPERS
+          - BUYERS
+          - NEW
+      - name: deviceTypes
+        description: Device type filter. Only one device type allowed.
+        in: query
+        schema:
+          type: string
+          enum:
+          - PC
+          - MOBILE
+          - PHONE
+          - TABLET
+          - TV
+          - GAME_CONSOLE
+          - OTHER
+          - UNKNOWN
+      responses:
+        '200':
+          description: Summary statistics for multiple advertisers.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  data:
+                    type: array
+                    description: Each element is generated according to selected groupBy.
+                    items:
+                      type: object
+                      description: Object contains selected groupBy fields + selected metric fields.
+  /advertisers/{hash}/last-seen-tags-stats:
+    get:
+      summary: Get last seen tags stats
+      tags:
+      - Statistics
+      parameters:
+      - $ref: '#/components/parameters/advertiserHash'
+      - $ref: '#/components/parameters/dayFromInQS'
+      - $ref: '#/components/parameters/dayToInQS'
+      - $ref: '#/components/parameters/subcampaigns'
+      responses:
+        '200':
+          description: Last seen tags stats.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - status
+                - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - lastTagHour
+                      - impsCount
+                      - clicksCount
+                      properties:
+                        lastTagHour:
+                          type: string
+                        impsCount:
+                          type: object
+                        clicksCount:
+                          type: object
+  /advertisers/{hash}/win-rate-stats:
+    get:
+      summary: Get win rate stats
+      tags:
+      - Statistics
+      parameters:
+      - $ref: '#/components/parameters/advertiserHash'
+      - $ref: '#/components/parameters/dayFromInQS'
+      - $ref: '#/components/parameters/dayToInQS'
+      - $ref: '#/components/parameters/subcampaigns'
+      responses:
+        '200':
+          description: Win rate statistics.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - status
+                - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - day
+                      - won
+                      - total
+                      properties:
+                        day:
+                          type: string
+                          format: date
+                        won:
+                          type: number
+                        total:
+                          type: number
+  /advertisers/{hash}/top-hosts-stats:
+    get:
+      summary: Get top hosts stats
+      tags:
+      - Statistics
+      parameters:
+      - $ref: '#/components/parameters/advertiserHash'
+      - $ref: '#/components/parameters/dayFromInQS'
+      - $ref: '#/components/parameters/dayToInQS'
+      - $ref: '#/components/parameters/subcampaigns'
+      - name: rankedBy
+        in: query
+        description: IMPS or CLICKS.
+        required: true
+        schema:
+          type: string
+          enum:
+          - IMPS
+          - CLICKS
+      responses:
+        '200':
+          description: Top hosts statistics ranked by impressions or clicks.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - status
+                - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - host
+                      - value
+                      properties:
+                        host:
+                          type: string
+                        value:
+                          type: number
+  /advertisers/{hash}/top-in-apps-stats:
+    get:
+      summary: Get top in apps stats
+      tags:
+      - Statistics
+      parameters:
+      - $ref: '#/components/parameters/advertiserHash'
+      - $ref: '#/components/parameters/dayFromInQS'
+      - $ref: '#/components/parameters/dayToInQS'
+      - $ref: '#/components/parameters/subcampaigns'
+      - name: rankedBy
+        in: query
+        description: IMPS or CLICKS.
+        required: true
+        schema:
+          type: string
+          enum:
+          - IMPS
+          - CLICKS
+      responses:
+        '200':
+          description: Top in-app statistics ranked by impressions or clicks.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - status
+                - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - appName
+                      - value
+                      properties:
+                        appName:
+                          type: string
+                        value:
+                          type: number
+  /advertisers/{hash}/rtb-deduplication-stats:
+    get:
+      summary: Get RTB deduplication stats
+      tags:
+      - Statistics
+      parameters:
+      - $ref: '#/components/parameters/advertiserHash'
+      - $ref: '#/components/parameters/dayFromInQS'
+      - $ref: '#/components/parameters/dayToInQS'
+      - $ref: '#/components/parameters/subcampaigns'
+      - name: groupBy
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          - subcampaign
+          - userSegment
+      - name: userSegments
+        description: User segments filter. Multiple values may be concatenated using "-". Availability depends on campaign type.
+        in: query
+        schema:
+          type: string
+          enum:
+          - VISITORS
+          - SHOPPERS
+          - BUYERS
+          - NEW
+      responses:
+        '200':
+          description: RTB deduplication statistics.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - status
+                - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  data:
+                    type: array
+                    description: Each element is generated according to selected groupBy.
+                    items:
+                      type: object
+                      description: Object contains selected groupBy fields + stats fields.
+components:
+  parameters:
+    subcampaigns:
+      name: subcampaigns
+      in: query
+      description: Hash of subcampaign. Multiple values may be concatenated using "-".
+      required: false
+      schema:
+        type: string
+    dayToInQS:
+      name: dayTo
+      in: query
+      description: Date in format "YYYY-MM-DD".
+      required: true
+      schema:
+        type: string
+    advertiserHash:
+      name: hash
+      in: path
+      description: Hash of advertiser.
+      required: true
+      schema:
+        type: string
+    dayFromInQS:
+      name: dayFrom
+      in: query
+      description: Date in format "YYYY-MM-DD".
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    basicAuth:
+      type: http
+      scheme: basic

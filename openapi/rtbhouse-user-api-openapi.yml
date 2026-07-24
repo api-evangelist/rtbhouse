@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  title: Client's panel API docs Advertisers User API
+  version: v5
+  description: 'RTB House Client Panel REST API for managing advertisers, campaigns, product offers, audiences,
+
+    RTB creatives, conversions, and accessing performance statistics. Supports campaign management,
+
+    billing retrieval, and detailed analytics including RTB stats, win-rate stats, top hosts, and
+
+    deduplication stats.
+
+
+    Authentication scheme types:
+
+    | Security Scheme Type      | HTTP   |
+
+    | ------------------------- | ------ |
+
+    | HTTP Authorization Scheme | Basic  |
+
+    | HTTP Authorization Scheme | Bearer |
+
+    '
+servers:
+- url: https://api.panel.rtbhouse.com/v5
+security:
+- basicAuth: []
+- bearerAuth: []
+tags:
+- name: User
+paths:
+  /user/info:
+    get:
+      summary: Get details about authenticated user
+      tags:
+      - User
+      responses:
+        '200':
+          description: User details.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - status
+                - data
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  data:
+                    type: object
+                    required:
+                    - hashId
+                    - login
+                    - email
+                    - isClientUser
+                    - isDemoUser
+                    - permissions
+                    properties:
+                      hashId:
+                        type: string
+                      login:
+                        type: string
+                      email:
+                        type: string
+                      isClientUser:
+                        type: boolean
+                      isDemoUser:
+                        type: boolean
+                      permissions:
+                        type: array
+                        items:
+                          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    basicAuth:
+      type: http
+      scheme: basic
