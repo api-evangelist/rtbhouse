@@ -1,0 +1,22 @@
+{
+  "provider": "rtbhouse",
+  "sources": [
+    "rtbhouse-advertisers-api-openapi.yml",
+    "rtbhouse-dev-api-openapi.yml",
+    "rtbhouse-statistics-api-openapi.yml",
+    "rtbhouse-tokens-api-openapi.yml",
+    "rtbhouse-user-api-openapi.yml"
+  ],
+  "outputs": [
+    "rtbhouse-advertisers-api-openapi.yml",
+    "rtbhouse-dev-api-openapi.yml",
+    "rtbhouse-statistics-api-openapi.yml",
+    "rtbhouse-tokens-api-openapi.yml",
+    "rtbhouse-user-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
