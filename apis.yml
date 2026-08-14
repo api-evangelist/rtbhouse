@@ -18,7 +18,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rtbhouse.png
 url: https://raw.githubusercontent.com/api-evangelist/rtbhouse/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 tags:
   - Advertising
@@ -39,6 +39,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/rtbhouse-advertisers-api-openapi.yml
+  - type: Overlay
+    url: overlays/rtbhouse-advertisers-api-overlay.yaml
   - type: Documentation
     url: https://api.panel.rtbhouse.com/api/docs
   - type: ReDoc
@@ -53,6 +55,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/rtbhouse-dev-api-openapi.yml
+  - type: Overlay
+    url: overlays/rtbhouse-dev-api-overlay.yaml
   - type: Documentation
     url: https://api.panel.rtbhouse.com/api/docs
   - type: ReDoc
@@ -67,6 +71,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/rtbhouse-statistics-api-openapi.yml
+  - type: Overlay
+    url: overlays/rtbhouse-statistics-api-overlay.yaml
   - type: Documentation
     url: https://api.panel.rtbhouse.com/api/docs
   - type: ReDoc
@@ -81,6 +87,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/rtbhouse-tokens-api-openapi.yml
+  - type: Overlay
+    url: overlays/rtbhouse-tokens-api-overlay.yaml
   - type: Documentation
     url: https://api.panel.rtbhouse.com/api/docs
   - type: ReDoc
@@ -95,6 +103,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/rtbhouse-user-api-openapi.yml
+  - type: Overlay
+    url: overlays/rtbhouse-user-api-overlay.yaml
   - type: Documentation
     url: https://api.panel.rtbhouse.com/api/docs
   - type: ReDoc
@@ -116,18 +126,61 @@ common:
     url: https://www.linkedin.com/company/rtb-house
   - type: Blog
     url: https://www.rtbhouse.com/blog
-  - type: Pricing
-    url: https://www.rtbhouse.com/contact
-  - type: StatusPage
-    url: https://api.panel.rtbhouse.com/healthcheck
   - type: X
     url: https://twitter.com/rtbhouse
+  - type: APIReference
+    url: https://api.panel.rtbhouse.com/api/redoc
+  - type: Support
+    url: https://www.rtbhouse.com/contact
+  - type: Login
+    url: https://panel.rtbhouse.com/
+  - type: PrivacyPolicy
+    url: https://www.rtbhouse.com/privacy-center/web-privacy-policy
   - type: Plans
     url: plans/rtbhouse-plans-pricing.yml
   - type: RateLimits
     url: rate-limits/rtbhouse-rate-limits.yml
   - type: FinOps
     url: finops/rtbhouse-finops.yml
+  - type: Packages
+    url: packages/rtbhouse-packages.yml
+  - type: SDKs
+    url: packages/rtbhouse-packages.yml
+  - type: CLI
+    url: cli/rtbhouse-cli.yml
+  - type: LLMsTxt
+    url: llms/rtbhouse-llms.txt
+  - type: Conventions
+    url: conventions/rtbhouse-conventions.yml
+  - type: ErrorCatalog
+    url: errors/rtbhouse-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/rtbhouse-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/rtbhouse-changelog.yml
+  - type: DataModel
+    url: data-model/rtbhouse-data-model.yml
+  - type: Conformance
+    url: conformance/rtbhouse-conformance.yml
+  - type: AgentSkill
+    url: skills/_index.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 21
+  pass: local-v1
+  notes: >-
+    Pointers deliberately NOT emitted, with the evidence in the matching artifact:
+    WellKnown/SecurityTxt (every /.well-known/ path 404s or returns an HTML shell —
+    well-known/rtbhouse-well-known.yml); AgentCard (no card on any host);
+    MCPServer (no server exists; mcp/rtbhouse-mcp.yml is a derived candidate only);
+    Idempotency (the API has no idempotency contract);
+    Compliance (the ISO 27001 claim is self-asserted in llms.txt with no compliance
+    page behind it); Security/VulnerabilityDisclosure and TrustCenter
+    (probe-security-programs.py found neither). Two existing pointers were REMOVED:
+    StatusPage aimed at https://api.panel.rtbhouse.com/healthcheck, which returns 404
+    and is in any case a liveness endpoint rather than a status page; and Pricing
+    aimed at the contact form, since RTB House publishes no pricing page.
