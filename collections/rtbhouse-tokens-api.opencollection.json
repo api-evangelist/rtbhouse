@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Client's panel API docs Advertisers Tokens API",
+    "version": "v5"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Rotate current API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.panel.rtbhouse.com/v5/tokens/current/rotate"
+          },
+          "docs": "Rotate current API token"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

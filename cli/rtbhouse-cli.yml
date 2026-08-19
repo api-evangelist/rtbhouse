@@ -1,0 +1,68 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/rtbhouse-apps/rtbhouse-python-sdk (README.rst "CLI for API
+  Tokens", CHANGELOG.md v15.1.0)
+name: RTB House API token CLI
+description: RTB House ships one first-party command-line surface — a token-management
+  CLI bundled inside the Python SDK, invoked as a module (`python -m rtbhouse_sdk.api_tokens`).
+  It is not a general-purpose API CLI; it exists solely to initialize, persist, keep
+  alive and rotate the API token that every other call depends on. It shipped with SDK
+  15.1.0 on 2026-05-04.
+scope: token lifecycle only — no resource/campaign/statistics commands
+binary: python -m rtbhouse_sdk.api_tokens
+standalone_binary: false
+package: packages/rtbhouse-packages.yml (pypi rtbhouse-sdk)
+install:
+- method: pip
+  command: pip install rtbhouse_sdk
+  note: The CLI is a module entry point in the SDK; there is no separate CLI package,
+    Homebrew formula, or downloadable binary.
+first_run:
+  - Mint an API token in the Clients Panel at https://panel.rtbhouse.com/user/api-tokens
+  - Run `python -m rtbhouse_sdk.api_tokens init-json` and paste the token when prompted
+commands:
+- command: init-json
+  group: token storage
+  summary: Initialize JSON file storage with an API token. Fetches the token's details
+    and saves them to disk.
+  usage:
+  - python -m rtbhouse_sdk.api_tokens init-json
+  - python -m rtbhouse_sdk.api_tokens init-json <<< "$API_TOKEN"
+  - python -m rtbhouse_sdk.api_tokens init-json < token.txt
+  - python -m rtbhouse_sdk.api_tokens init-json --path /custom/path/to/token.json
+  flags:
+  - flag: --path
+    description: Alternate location for the JSON token file.
+  input: token via interactive prompt or stdin
+- command: keep-alive-json
+  group: token lifecycle
+  summary: Refresh the stored token's last-activity timestamp and, when it has entered
+    its rotation window, rotate it and overwrite the stored value.
+  usage:
+  - python -m rtbhouse_sdk.api_tokens keep-alive-json
+  - python -m rtbhouse_sdk.api_tokens keep-alive-json --skip-auto-rotate
+  - python -m rtbhouse_sdk.api_tokens keep-alive-json --path /custom/path/to/token.json
+  flags:
+  - flag: --skip-auto-rotate
+    description: Refresh activity only; do not rotate even if inside the rotation window.
+  - flag: --path
+    description: Alternate location for the JSON token file.
+  backing_operation: POST /tokens/current/rotate
+key_flows:
+- name: Keep an unattended integration authenticated
+  steps:
+  - Mint a token in the Clients Panel.
+  - '`init-json` once to seed local storage.'
+  - Schedule `keep-alive-json` with cron at least daily. RTB House API tokens expire if
+    they are not actively used, so an integration that runs weekly will lose its token
+    without this.
+  note: Applications that call the API frequently do not need the cron job — the SDK's
+    ApiTokenManager rotates on any request made inside the rotation window.
+storage_backends:
+- JsonFileApiTokenStorage / AsyncJsonFileApiTokenStorage (the CLI's backend)
+- InMemoryApiTokenStorage / AsyncInMemoryApiTokenStorage
+- custom, by subclassing ApiTokenStorage / AsyncApiTokenStorage
+php_cli:
+  exists: false
+  note: The PHP SDK ships no CLI equivalent; PHP integrations must manage token rotation
+    themselves.

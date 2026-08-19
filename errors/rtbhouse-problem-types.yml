@@ -1,0 +1,85 @@
+generated: '2026-08-13'
+method: probed
+source: live responses from https://api.panel.rtbhouse.com/v5/ observed 2026-08-13; error
+  field names and status handling confirmed against https://github.com/rtbhouse-apps/rtbhouse-python-sdk
+  (rtbhouse_sdk/exceptions.py, rtbhouse_sdk/client.py `_validate_response`)
+name: RTB House Client Panel API v5 error catalog
+description: RTB House's published OpenAPI declares ONLY 200 responses — not a single
+  4xx or 5xx is documented on any of its 23 operations, so nothing could be derived from
+  the spec. This catalog is built instead from the error envelope observed live on the
+  API and from the status codes the first-party Python SDK explicitly branches on, which
+  is the provider's own code.
+format: vendor-json
+rfc9457: false
+derived_from_spec: false
+spec_documents_error_responses: false
+spec_gap_note: All 23 operations across openapi/rtbhouse-*-openapi.yml declare a "200"
+  response and nothing else. An agent reading only the contract has no way to know what
+  failure looks like.
+envelope:
+  content_type: application/json; charset=utf-8
+  fields:
+    status: constant string "error"
+    message: human-readable message
+    httpCode: HTTP status repeated in the body
+    appCode: machine-readable application error code
+    errors: optional object carrying per-field validation detail (may be null/absent)
+  example_observed: '{"message": "Unauthorized", "status": "error", "httpCode": 401,
+    "appCode": "INVALID_CREDENTIALS"}'
+problems:
+- status: 401
+  app_code: INVALID_CREDENTIALS
+  title: Unauthorized
+  detail: Credentials are missing, malformed, or the API token is expired or revoked.
+  headers:
+    WWW-Authenticate: Basic realm="application"
+  remediation: Present a valid Authorization header — Bearer <api-token>, Token <api-token>,
+    or HTTP Basic. If a token has lapsed, mint a new one in the Clients Panel; a token
+    inside its rotation window can be renewed with POST /tokens/current/rotate.
+  method: probed
+  evidence: 'Observed on GET https://api.panel.rtbhouse.com/v5/advertisers and on every
+    unauthenticated /v5/* path on 2026-08-13.'
+- status: 410
+  title: API version no longer supported
+  detail: The requested API version has been retired. The response carries the
+    X-Current-Api-Version header naming the version to move to.
+  headers:
+    X-Current-Api-Version: the currently supported version
+  remediation: Upgrade the client to the version named in X-Current-Api-Version. The
+    Python SDK raises ApiVersionMismatchException here and tells the caller to upgrade
+    the package.
+  method: searched
+  evidence: rtbhouse_sdk/client.py `_validate_response` branches on status_code == 410.
+- status: 429
+  title: Resource usage limits reached
+  detail: A resource-usage budget was exhausted. The X-Resource-Usage header reports
+    used/limit per metric and window, e.g. WORKER_TIME-3600=11.7/10000000;BQ_TB_BILLED-21600=4.62/2000.
+  headers:
+    X-Resource-Usage: METRIC-WINDOWSECONDS=used/limit, entries joined by ";"
+  remediation: Back off until the named window rolls over, narrow the dayFrom/dayTo
+    range or the groupBy/metrics selection to reduce query cost, and cache statistics
+    rather than re-querying. No Retry-After header is sent.
+  method: searched
+  evidence: rtbhouse_sdk/exceptions.py ApiRateLimitException + `_parse_resource_usage_header`;
+    rtbhouse_sdk/client.py branches on status_code == 429.
+  see_also: ../rate-limits/rtbhouse-rate-limits.yml
+- status: 4xx
+  title: Request error
+  detail: Any other client error. The SDK raises a generic ApiRequestException carrying
+    the envelope's appCode, message and per-field `errors` object.
+  remediation: Read appCode and the errors object; correct the request parameters.
+  method: searched
+  evidence: rtbhouse_sdk/client.py raises ApiRequestException for all remaining
+    `response.is_error` cases.
+sdk_exception_hierarchy:
+- ApiException — base; also raised on a non-JSON or envelope-less response ("Invalid
+    response format")
+- ApiVersionMismatchException(ApiException) — HTTP 410
+- ApiRequestException(ApiException) — all other 4xx/5xx
+- ApiRateLimitException(ApiRequestException) — HTTP 429, carries parsed X-Resource-Usage
+    limits
+gaps:
+- No published registry of appCode values. INVALID_CREDENTIALS is the only code
+  observable without an authenticated account.
+- No 4xx/5xx responses in the OpenAPI, so error shapes cannot be code-generated.
+- No Retry-After on 429.

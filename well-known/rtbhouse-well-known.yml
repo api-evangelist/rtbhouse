@@ -1,0 +1,76 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes of every RTB House host named in apis.yml and the OpenAPI servers[]
+name: RTB House well-known discovery probe
+description: RTB House serves no RFC 8615 /.well-known/ documents on any of its hosts.
+  Every canonical discovery path was probed on the API host, the corporate website and
+  the client panel; all returned 404, or a 200 carrying an HTML single-page-app shell
+  rather than a document. NO WellKnown, SecurityTxt, APICatalog or AgentCard pointer is
+  emitted from this file — a recorded absence is data, not a served surface.
+result: no-documents-served
+hosts:
+- host: https://api.panel.rtbhouse.com
+  role: API host (OpenAPI servers[] and every apis[].baseURL)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  note: All 404s are genuine nginx 404 pages (146 bytes, "404 Not Found ... nginx").
+- host: https://www.rtbhouse.com
+  role: corporate website (common[].Website)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /security.txt
+    status: 200
+    verdict: not-a-document
+    note: 'SOFT 200. Returns the Next.js catch-all route ([url]) with "isFallback":true
+      and no body text — an HTML shell, not an RFC 9116 security.txt. Treated as a miss.'
+- host: https://panel.rtbhouse.com
+  role: client panel / sign-in host
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    verdict: not-a-document
+    note: SOFT 200. Returns the panel's HTML application shell for the path, not a
+      security.txt. Treated as a miss.
+other_discovery_files:
+- path: https://www.rtbhouse.com/llms.txt
+  status: 200
+  verdict: real-document
+  file: ../llms/rtbhouse-llms.txt
+  note: Not a /.well-known/ path, but the one machine-readable discovery document RTB
+    House genuinely publishes. Captured verbatim under llms/ and pointed at with
+    type LLMsTxt.
+- path: https://www.rtbhouse.com/robots.txt
+  status: 200
+  verdict: real-document
+  note: Served, but a crawler-control file rather than an API discovery document; not
+    captured as an artifact.
+pointers_emitted: []
+pointer_rationale: Every /.well-known/ probe returned 404 or an HTML shell, so no
+  WellKnown / SecurityTxt / APICatalog / AgentCard pointer is wired. Emitting one
+  would assert RTB House serves a surface it does not.

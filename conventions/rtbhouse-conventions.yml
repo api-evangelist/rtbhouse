@@ -1,0 +1,146 @@
+generated: '2026-08-13'
+method: searched
+source: https://api.panel.rtbhouse.com/api/docs/openapi.yaml, https://github.com/rtbhouse-apps/rtbhouse-python-sdk
+  (rtbhouse_sdk/client.py, rtbhouse_sdk/exceptions.py, README.rst), live response headers
+  observed 2026-08-13
+name: RTB House Client Panel API v5 conventions
+description: Cross-cutting request/response semantics for the RTB House Client Panel API
+  v5. The published OpenAPI documents paths and schemas but not the runtime contract;
+  the runtime contract is carried in the first-party Python SDK, which is the provider's
+  own code and is treated here as provider-published evidence. Every header, status code
+  and parameter name below appears verbatim in that source or in a live response.
+base_url: https://api.panel.rtbhouse.com/v5
+authentication:
+  styles:
+  - name: API token (Bearer)
+    header: 'Authorization: Bearer <token>'
+    issued_at: https://panel.rtbhouse.com/user/api-tokens
+    note: Preferred style. Tokens have a limited lifetime, must be actively used, and
+      must be rotated before expiry.
+  - name: API token (Token scheme)
+    header: 'Authorization: Token <token>'
+    note: BasicTokenAuth in the SDK — a fixed token presented with the "Token" scheme.
+  - name: HTTP Basic
+    header: 'Authorization: Basic <base64(user:password)>'
+    note: >-
+      Username/password of a panel user. The API answers unauthenticated requests
+      with `WWW-Authenticate` set to `Basic realm="application"`.
+  rotation:
+    supported: true
+    operation: POST /tokens/current/rotate
+    returns: '{status, data:{token, expiresAt}}'
+    sdk_helper: ApiTokenManager / AsyncApiTokenManager rotate automatically once the
+      token enters its rotation window; `python -m rtbhouse_sdk.api_tokens keep-alive-json`
+      keeps an idle token alive.
+  see_also: ../authentication/rtbhouse-authentication.yml
+idempotency:
+  supported: false
+  evidence: No Idempotency-Key (or equivalent) header, parameter or documentation exists
+    in the published OpenAPI, the SDK client, or the SDK README. The only non-idempotent
+    operations are two PUT status updates (naturally idempotent by HTTP semantics) and
+    POST /tokens/current/rotate, which is deliberately single-use.
+  pointer_emitted: false
+  note: No type Idempotency pointer is wired for RTB House. The API has no idempotency
+    contract to point at.
+pagination:
+  styles:
+  - style: cursor
+    applies_to:
+    - GET /advertisers/{hash}/conversions
+    request_params:
+      limit: page size; the SDK sends the maximum, 10000 (MAX_CURSOR_ROWS)
+      nextCursor: opaque cursor echoed from the previous response
+    response_fields:
+      rows: array of records for this page
+      nextCursor: cursor for the following page; null terminates the walk
+    evidence: rtbhouse_sdk/client.py `_get_list_of_dicts_from_cursor`
+  - style: none
+    applies_to: all other collection operations (advertisers, campaigns, offers,
+      rtb-creatives, rate-cards, billing and every stats endpoint)
+    note: These return the full result set in `data`. Statistics endpoints are bounded
+      by the required dayFrom/dayTo window and the groupBy selection instead of by paging.
+response_envelope:
+  shape: '{"status": "ok", "data": <payload>}'
+  success_field: status
+  success_value: ok
+  payload_field: data
+  note: The SDK unwraps `data` on every success and raises ApiException("Invalid
+    response format") when the key is missing, so the envelope is mandatory.
+error_envelope:
+  shape: '{"status": "error", "message": <string>, "httpCode": <int>, "appCode": <string>,
+    "errors": <object|null>}'
+  fields:
+    status: always "error"
+    message: human-readable message
+    httpCode: the HTTP status repeated in the body
+    appCode: machine-readable application error code (e.g. INVALID_CREDENTIALS)
+    errors: optional per-field validation detail
+  rfc9457: false
+  content_type: application/json; charset=utf-8
+  evidence: observed live on GET https://api.panel.rtbhouse.com/v5/advertisers (401)
+    on 2026-08-13; field names confirmed against rtbhouse_sdk/exceptions.py ErrorDetails.
+  see_also: ../errors/rtbhouse-problem-types.yml
+versioning:
+  scheme: uri-path
+  current: v5
+  base: https://api.panel.rtbhouse.com/v5
+  current_version_header: X-Current-Api-Version
+  behaviour:
+  - The API returns X-Current-Api-Version on responses; when it differs from the version
+    the client is calling, the client is on an outdated version.
+  - A request against a version that is no longer supported returns HTTP 410 Gone, and
+    X-Current-Api-Version names the version to move to.
+  see_also: ../lifecycle/rtbhouse-lifecycle.yml
+rate_limit_signaling:
+  status_on_exhaustion: 429
+  header: X-Resource-Usage
+  format: METRIC-WINDOWSECONDS=used/limit, multiple entries joined by ";"
+  metrics_named:
+  - WORKER_TIME
+  - BQ_TB_BILLED
+  retry_after: not sent
+  standard_headers: none — no RateLimit-* or X-RateLimit-* headers are returned
+  see_also: ../rate-limits/rtbhouse-rate-limits.yml
+request_tracing:
+  request_id_header: none observed
+  note: No correlation/request-id header is returned on any observed response.
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+  note: No customer-supplied metadata field exists on any resource in the v5 schema.
+filtering:
+  common_params:
+  - name: dayFrom / dayTo
+    note: 'Required YYYY-MM-DD window on every statistics endpoint.'
+  - name: subcampaigns
+    note: Subcampaign hashes, multiple values concatenated with "-".
+  - name: groupBy
+    note: Statistics dimension selection; the response objects contain exactly the
+      selected groupBy fields plus the selected metrics.
+  - name: metrics
+    note: Statistics metric selection.
+  - name: countConvention
+    note: Attribution convention for conversion counting.
+  - name: utcOffsetHours
+    note: Timezone offset applied to day bucketing on rtb-stats and summary-stats.
+identifiers:
+  style: opaque hash strings
+  path_params:
+  - hash — advertiser hash
+  - campaignHash — campaign hash
+  - rateCardHash — rate card hash
+  note: No typed id prefixes; identifiers are opaque strings called "hash" throughout.
+cors:
+  access_control_allow_origin: https://panel.rtbhouse.com
+  access_control_allow_credentials: true
+  note: CORS is scoped to the first-party panel only — the API is not callable from a
+    third-party browser origin.
+security_headers_observed:
+  strict-transport-security: max-age=31536000
+  content-security-policy: frame-ancestors 'none'
+  x-frame-options: DENY
+user_agent:
+  sdk_default: rtbhouse-python-sdk/<version>
+timeouts:
+  sdk_default_seconds: 60

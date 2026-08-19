@@ -1,0 +1,72 @@
+generated: '2026-08-13'
+method: searched
+source: https://api.panel.rtbhouse.com/api/docs/openapi.yaml, https://github.com/rtbhouse-apps/rtbhouse-python-sdk
+  (rtbhouse_sdk/client.py, CHANGELOG.md), live probes 2026-08-13
+name: RTB House Client Panel API v5 lifecycle
+description: Versioning, deprecation and availability posture for the RTB House Client
+  Panel API. RTB House versions in the URI path and signals version drift with a response
+  header, but publishes no written deprecation policy, no SLA and no status page.
+versioning:
+  scheme: uri-path
+  current: v5
+  base: https://api.panel.rtbhouse.com/v5
+  docs: https://api.panel.rtbhouse.com/api/docs
+  signal_header: X-Current-Api-Version
+  signal_behaviour: Returned on responses. When it differs from the version the caller
+    is using, the caller is on an outdated version; the Python SDK emits a warning. A
+    call to a retired version returns HTTP 410 Gone with the header naming the successor.
+  evidence: rtbhouse_sdk/client.py `_validate_response`; API_VERSION = "v5".
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  mechanism: HTTP 410 Gone plus X-Current-Api-Version on a retired version. This is a
+    hard cutover signal, not an advance-notice deprecation contract — a client learns
+    the version is gone only when the call fails.
+  compatibility_windows_observed:
+  - change: The `viewability` metric was renamed to `ssp_viewability`, with a
+      compatibility layer left in the API until 2024-12-31.
+    source: rtbhouse-python-sdk CHANGELOG.md, v13.0.0
+    note: The only dated sunset RTB House has published anywhere. It appears in an SDK
+      changelog, not in an API deprecation policy.
+  breaking_changes_recent:
+  - version: SDK v16.0.0
+    change: Removed the `placement` dimension grouping usable with legacy DPA stats.
+    date: '2026-06-10'
+  pointer_emitted: false
+  pointer_rationale: No Deprecation pointer is wired. RTB House publishes no deprecation
+    policy page and sends neither Deprecation nor Sunset headers; a 410 on a dead
+    version is not a policy.
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status_page:
+  url: null
+  published: false
+  probes:
+  - url: https://status.rtbhouse.com/
+    status: 000
+    note: DNS does not resolve.
+  liveness_endpoint:
+    url: https://api.panel.rtbhouse.com/v5/healthcheck
+    status: 200
+    body: SUCCESS
+    auth_required: false
+    operation: GET /healthcheck (openapi/rtbhouse-dev-api-openapi.yml)
+    note: An unauthenticated liveness probe returning the string SUCCESS. It is NOT a
+      status page — no incident history, no component breakdown, no subscriptions.
+  pointer_emitted: false
+  pointer_rationale: 'The StatusPage pointer previously wired in apis.yml aimed at
+    https://api.panel.rtbhouse.com/healthcheck, which returns HTTP 404 (the real path is
+    /v5/healthcheck). It was removed rather than repaired: a healthcheck endpoint is not
+    a published status page, and leaving the pointer would credit RTB House with an
+    operational-transparency surface it does not run.'
+support:
+  developer_support: via the RTB House account team; no public developer support channel
+  contact: https://www.rtbhouse.com/contact
+deprecated_operations: []
+deprecated_operations_note: 'No operation in any openapi/ file carries `deprecated: true`.'
+change_log: ../changelog/rtbhouse-changelog.yml

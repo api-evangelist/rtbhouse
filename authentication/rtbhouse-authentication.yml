@@ -1,17 +1,102 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/rtbhouse-client-panel-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: openapi/rtbhouse-advertisers-api-openapi.yml, openapi/rtbhouse-dev-api-openapi.yml,
+  openapi/rtbhouse-statistics-api-openapi.yml, openapi/rtbhouse-tokens-api-openapi.yml,
+  openapi/rtbhouse-user-api-openapi.yml; upgraded from https://github.com/rtbhouse-apps/rtbhouse-python-sdk
+  (README.rst "Authentication methods", rtbhouse_sdk/client.py) and live probes of
+  https://api.panel.rtbhouse.com/v5/ on 2026-08-13
+docs: https://api.panel.rtbhouse.com/api/docs
+credential_issuance: https://panel.rtbhouse.com/user/api-tokens
+description: >-
+  The RTB House Client Panel API v5 authenticates with HTTP Authorization
+  headers only. The OpenAPI declares two schemes (http basic, http bearer); the
+  first-party SDK documents a third accepted style — an `Authorization` header carrying
+  `Token <api-token>` — which the spec does not mention. There is no OAuth, no OIDC, no
+  API key parameter and no mTLS. Every path except GET /healthcheck requires a
+  credential.
 summary:
   types:
   - http
+  http_schemes:
+  - basic
+  - bearer
+  - token (undocumented in the spec; accepted per the first-party SDK)
+  api_key_in: []
+  oauth2_flows: []
+  openid_connect: false
+  mutual_tls: false
 schemes:
 - name: bearerAuth
   type: http
   scheme: bearer
+  header: 'Authorization: Bearer <api-token>'
+  credential: API token minted in the Clients Panel
+  preferred: true
   sources:
-  - openapi/rtbhouse-client-panel-openapi.yml
+  - openapi/rtbhouse-advertisers-api-openapi.yml
+  - openapi/rtbhouse-dev-api-openapi.yml
+  - openapi/rtbhouse-statistics-api-openapi.yml
+  - openapi/rtbhouse-tokens-api-openapi.yml
+  - openapi/rtbhouse-user-api-openapi.yml
 - name: basicAuth
   type: http
   scheme: basic
+  header: 'Authorization: Basic <base64(username:password)>'
+  credential: Clients Panel username and password
+  note: >-
+    The API returns a WWW-Authenticate header of `Basic realm="application"` on a 401,
+    observed live 2026-08-13.
   sources:
-  - openapi/rtbhouse-client-panel-openapi.yml
+  - openapi/rtbhouse-advertisers-api-openapi.yml
+  - openapi/rtbhouse-dev-api-openapi.yml
+  - openapi/rtbhouse-statistics-api-openapi.yml
+  - openapi/rtbhouse-tokens-api-openapi.yml
+  - openapi/rtbhouse-user-api-openapi.yml
+- name: tokenScheme
+  type: http
+  scheme: token
+  header: 'Authorization: Token <api-token>'
+  header_note: An Authorization header carrying the literal scheme name Token.
+  credential: fixed API token
+  in_spec: false
+  sources:
+  - https://github.com/rtbhouse-apps/rtbhouse-python-sdk (BasicTokenAuth /
+    _HttpxBasicTokenAuth)
+  note: Accepted by the API but absent from the published securitySchemes — a contract
+    gap, not a second credential type.
+token_lifecycle:
+  expiring: true
+  expiry_on_inactivity: true
+  expiry_note: RTB House API tokens have a limited lifetime AND expire if they are not
+    actively used. An integration that calls infrequently loses its credential.
+  rotation_operation: POST /tokens/current/rotate
+  rotation_response: '{status: ok, data: {token, expiresAt}}'
+  rotation_window: The token becomes eligible for rotation before expiry; the SDK checks
+    eligibility on every request and rotates within that window.
+  read_current_token: not possible — no read operation exists; the rotation response is
+    the only time a new token is disclosed
+  tooling:
+  - ApiTokenManager / AsyncApiTokenManager (automatic rotation, pluggable storage)
+  - ApiTokenAuth (static token, no rotation)
+  - python -m rtbhouse_sdk.api_tokens init-json | keep-alive-json (see ../cli/rtbhouse-cli.yml)
+authorization:
+  model: coarse per-user permissions
+  signal: GET /user/info returns `permissions` (string array), plus `isClientUser` and
+    `isDemoUser` flags
+  scopes: none — there is no OAuth scope surface, so no scopes/ artifact is emitted
+  note: Access is otherwise scoped by which advertiser hashes GET /advertisers returns
+    for the authenticated user.
+unauthenticated_operations:
+- GET /healthcheck
+transport:
+  https_required: true
+  hsts: max-age=31536000 on api.panel.rtbhouse.com
+  cors_allowed_origin: https://panel.rtbhouse.com
+  cors_note: Cross-origin browser access is limited to the first-party panel; the API is
+    not callable from a third-party web origin.
+failure_mode:
+  status: 401
+  app_code: INVALID_CREDENTIALS
+  body: '{"message": "Unauthorized", "status": "error", "httpCode": 401, "appCode":
+    "INVALID_CREDENTIALS"}'
+  observed: '2026-08-13'

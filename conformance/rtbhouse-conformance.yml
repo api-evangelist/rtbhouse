@@ -1,0 +1,122 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/rtbhouse-client-panel-openapi.yml, ../conventions/rtbhouse-conventions.yml,
+  ../errors/rtbhouse-problem-types.yml, ../security/rtbhouse-domain-security.yml,
+  https://www.rtbhouse.com/llms.txt, https://www.rtbhouse.com/privacy-center
+name: RTB House conformance profile
+description: Which cross-cutting and industry standards the RTB House Client Panel API
+  v5 conforms to, asserted from the published contract and observed runtime behaviour.
+  RTB House operates in programmatic advertising, so the adtech standards layer matters
+  as much as the API layer — but the company's participation there is corporate
+  (IAB Tech Lab, NAI, Prebid) and is not expressed in this API's contract.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: 'openapi: 3.0.0 served at https://api.panel.rtbhouse.com/api/docs/openapi.yaml,
+    rendered by both Swagger UI and Redoc.'
+- id: http-basic-auth
+  conforms: true
+  evidence: >-
+    securitySchemes basicAuth (type http, scheme basic); the API answers
+    unauthenticated calls with a WWW-Authenticate header of Basic realm="application".
+- id: http-bearer-auth
+  conforms: true
+  evidence: >-
+    securitySchemes bearerAuth (type http, scheme bearer); the SDK sends an
+    Authorization header carrying `Bearer <api-token>`.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme in any spec file; no /.well-known/oauth-authorization-server
+    (404 on every host).
+- id: oidc
+  conforms: false
+  evidence: No openIdConnect securityScheme; /.well-known/openid-configuration returns
+    404 on every host.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 'Errors use a vendor envelope {status, message, httpCode, appCode, errors}
+    with content-type application/json, not application/problem+json.'
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header on any observed response; version retirement
+    is signalled only by HTTP 410 plus X-Current-Api-Version.
+- id: rfc6585-429
+  conforms: true
+  evidence: HTTP 429 on resource-budget exhaustion (rtbhouse_sdk/client.py). No
+    Retry-After is sent, so the RFC's recommended companion header is absent.
+- id: ietf-ratelimit-headers
+  conforms: false
+  evidence: Neither RateLimit-* nor X-RateLimit-* headers are returned; RTB House uses a
+    proprietary X-Resource-Usage header instead.
+- id: rfc8615-well-known
+  conforms: false
+  evidence: Every /.well-known/ path probed on api.panel.rtbhouse.com, www.rtbhouse.com
+    and panel.rtbhouse.com returned 404 or an HTML shell. See ../well-known/rtbhouse-well-known.yml.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: No security.txt served; /.well-known/security.txt is 404 on the API host and
+    a soft-200 HTML shell on the website.
+- id: llms-txt
+  conforms: true
+  evidence: https://www.rtbhouse.com/llms.txt returns 200 with a real llms.txt document
+    (H1, blockquote summary, sectioned link lists). Captured at ../llms/rtbhouse-llms.txt.
+- id: hsts
+  conforms: true
+  evidence: 'strict-transport-security: max-age=31536000 on api.panel.rtbhouse.com,
+    confirmed 2026-08-13. Not served on www.rtbhouse.com.'
+- id: dmarc
+  conforms: true
+  evidence: DMARC published on rtbhouse.com with policy `reject`; SPF present. See
+    ../security/rtbhouse-domain-security.yml.
+- id: dnssec
+  conforms: false
+  evidence: No DNSSEC on rtbhouse.com; no CAA records.
+- id: json-api
+  conforms: false
+  evidence: Vendor envelope {status, data}; no JSON:API media type or document
+    structure.
+- id: cursor-pagination
+  conforms: partial
+  evidence: Cursor pagination (limit + nextCursor, response rows/nextCursor/total) on
+    GET /advertisers/{hash}/conversions only. Every other collection returns an
+    unbounded array.
+- id: idempotency-key
+  conforms: false
+  evidence: No idempotency header or parameter anywhere in the spec, the SDK, or the
+    docs.
+- id: webhooks
+  conforms: false
+  evidence: No webhook, callback or event surface in the spec or the docs; the API is
+    poll-only.
+- id: asyncapi
+  conforms: false
+  evidence: No event/streaming contract published.
+- id: gdpr
+  conforms: true
+  evidence: Published privacy programme at https://www.rtbhouse.com/privacy-center
+    (200), including a service privacy policy, a web privacy policy, a named Data
+    Protection Officer (dpo@rtbhouse.com) and US state-law handling. This is a corporate
+    privacy posture, not an API contract feature.
+adtech_and_corporate_claims:
+- claim: ISO/IEC 27001 certified (2025)
+  source: https://www.rtbhouse.com/llms.txt
+  verified_independently: false
+  note: Self-asserted in RTB House's own llms.txt. No trust centre, certificate registry
+    entry or audit report is published — probes of /trust, /security and /compliance on
+    www.rtbhouse.com all return the Next.js catch-all shell, not a page.
+- claim: IAB Tech Lab member
+  source: https://www.rtbhouse.com/llms.txt
+  verified_independently: false
+- claim: Prebid certified partner
+  source: https://www.rtbhouse.com/llms.txt
+  verified_independently: false
+- claim: NAI member and board director
+  source: https://www.rtbhouse.com/llms.txt
+  verified_independently: false
+compliance_pointer_emitted: false
+compliance_pointer_rationale: No type Compliance pointer is wired. RTB House's only
+  certification claim (ISO/IEC 27001) appears in a self-authored llms.txt with no
+  compliance page, trust centre or evidence surface behind it; probe-security-programs.py
+  found neither a trust centre nor a vulnerability-disclosure programme. Emitting
+  Compliance on the strength of a marketing line would credit a published compliance
+  programme that does not exist.

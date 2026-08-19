@@ -1,0 +1,101 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Client's panel API docs Advertisers Statistics API
+  version: 1.0.0
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/rtbhouse-statistics-api-openapi.yml
+extends: openapi/rtbhouse-statistics-api-openapi.yml
+actions:
+- target: $.info
+  description: Record the API Evangelist enrichment context for this contract.
+  update:
+    x-apievangelist-provider: rtbhouse
+    x-apievangelist-artifacts:
+      authentication: authentication/rtbhouse-authentication.yml
+      conventions: conventions/rtbhouse-conventions.yml
+      errors: errors/rtbhouse-problem-types.yml
+      rate-limits: rate-limits/rtbhouse-rate-limits.yml
+      lifecycle: lifecycle/rtbhouse-lifecycle.yml
+      data-model: data-model/rtbhouse-data-model.yml
+- target: $.info
+  description: 'Document the runtime semantics the published contract omits: versioning header, error
+    envelope, and the resource-usage rate-limit signal.'
+  update:
+    x-api-version-header: X-Current-Api-Version
+    x-retired-version-status: 410
+    x-error-envelope:
+      status: error
+      fields:
+      - status
+      - message
+      - httpCode
+      - appCode
+      - errors
+      rfc9457: false
+    x-rate-limit:
+      status: 429
+      header: X-Resource-Usage
+      format: METRIC-WINDOWSECONDS=used/limit joined by ";"
+      metrics:
+      - WORKER_TIME
+      - BQ_TB_BILLED
+      retry_after: false
+    x-idempotency:
+      supported: false
+- target: $.paths['/advertisers/{hash}/rtb-stats'].get
+  description: Flag the contract gaps on GET /advertisers/{hash}/rtb-stats — no operationId and no documented
+    4xx/5xx response.
+  update:
+    x-apievangelist-gaps:
+    - no-operationId
+    - no-error-responses
+- target: $.paths['/advertisers/{hash}/summary-stats'].get
+  description: Flag the contract gaps on GET /advertisers/{hash}/summary-stats — no operationId and no
+    documented 4xx/5xx response.
+  update:
+    x-apievangelist-gaps:
+    - no-operationId
+    - no-error-responses
+- target: $.paths['/advertisers-summary-stats'].get
+  description: Flag the contract gaps on GET /advertisers-summary-stats — no operationId and no documented
+    4xx/5xx response.
+  update:
+    x-apievangelist-gaps:
+    - no-operationId
+    - no-error-responses
+- target: $.paths['/advertisers/{hash}/last-seen-tags-stats'].get
+  description: Flag the contract gaps on GET /advertisers/{hash}/last-seen-tags-stats — no operationId
+    and no documented 4xx/5xx response.
+  update:
+    x-apievangelist-gaps:
+    - no-operationId
+    - no-error-responses
+- target: $.paths['/advertisers/{hash}/win-rate-stats'].get
+  description: Flag the contract gaps on GET /advertisers/{hash}/win-rate-stats — no operationId and no
+    documented 4xx/5xx response.
+  update:
+    x-apievangelist-gaps:
+    - no-operationId
+    - no-error-responses
+- target: $.paths['/advertisers/{hash}/top-hosts-stats'].get
+  description: Flag the contract gaps on GET /advertisers/{hash}/top-hosts-stats — no operationId and
+    no documented 4xx/5xx response.
+  update:
+    x-apievangelist-gaps:
+    - no-operationId
+    - no-error-responses
+- target: $.paths['/advertisers/{hash}/top-in-apps-stats'].get
+  description: Flag the contract gaps on GET /advertisers/{hash}/top-in-apps-stats — no operationId and
+    no documented 4xx/5xx response.
+  update:
+    x-apievangelist-gaps:
+    - no-operationId
+    - no-error-responses
+- target: $.paths['/advertisers/{hash}/rtb-deduplication-stats'].get
+  description: Flag the contract gaps on GET /advertisers/{hash}/rtb-deduplication-stats — no operationId
+    and no documented 4xx/5xx response.
+  update:
+    x-apievangelist-gaps:
+    - no-operationId
+    - no-error-responses

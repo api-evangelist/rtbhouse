@@ -1,0 +1,464 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Client's panel API docs Advertisers Statistics API",
+    "version": "v5"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get RTB stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/rtb-stats",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "dayFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "dayTo",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query",
+                "description": "Stats grouping. Multiple values may be concatenated using \"-\". Not all combinations are possible."
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Metrics to load. Multiple values may be concatenated using \"-\". Not all combinations are possible."
+              },
+              {
+                "name": "countConvention",
+                "value": "",
+                "type": "query",
+                "description": "Conversions counting convention. Required only if any conversion-related metrics is selected."
+              },
+              {
+                "name": "utcOffsetHours",
+                "value": "",
+                "type": "query",
+                "description": "UTC offset (in hours) for date range / time related dimensions. Non-zero value reduces number of possible dimensions. Missing value defaults to 0."
+              },
+              {
+                "name": "subcampaigns",
+                "value": "",
+                "type": "query",
+                "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+              },
+              {
+                "name": "userSegments",
+                "value": "",
+                "type": "query",
+                "description": "User segments filter. Multiple values may be concatenated using \"-\"."
+              },
+              {
+                "name": "deviceTypes",
+                "value": "",
+                "type": "query",
+                "description": "Device type filter. Only one device type allowed."
+              },
+              {
+                "name": "creativeNamesFamilies",
+                "value": "",
+                "type": "query",
+                "description": "Creative names families filter. Multiple values may be concatenated using \"-\"."
+              }
+            ]
+          },
+          "docs": "Get RTB stats"
+        },
+        {
+          "info": {
+            "name": "Get summary stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/summary-stats",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "dayFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "dayTo",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query",
+                "description": "Stats grouping. Multiple values may be concatenated using \"-\". Not all combinations are possible."
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Metrics to load. Multiple values may be concatenated using \"-\". Not all combinations are possible."
+              },
+              {
+                "name": "countConvention",
+                "value": "",
+                "type": "query",
+                "description": "Conversions counting convention. Required only if any conversion-related metrics is selected."
+              },
+              {
+                "name": "utcOffsetHours",
+                "value": "",
+                "type": "query",
+                "description": "UTC offset (in hours) for date range / time related dimensions."
+              },
+              {
+                "name": "subcampaigns",
+                "value": "",
+                "type": "query",
+                "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+              },
+              {
+                "name": "deviceTypes",
+                "value": "",
+                "type": "query",
+                "description": "Device type filter. Only one device type allowed."
+              }
+            ]
+          },
+          "docs": "Get summary stats"
+        },
+        {
+          "info": {
+            "name": "Get summary stats for multiple advertisers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers-summary-stats",
+            "params": [
+              {
+                "name": "advertisers",
+                "value": "",
+                "type": "query",
+                "description": "Advertisers filter. Hash of advertiser. Multiple values may be concatenated using \",\"."
+              },
+              {
+                "name": "campaignType",
+                "value": "",
+                "type": "query",
+                "description": "Type of campaign to filter advertisers by. Advertisers belonging to different types cannot be fetched at once."
+              },
+              {
+                "name": "dayFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "dayTo",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query",
+                "description": "Stats grouping. Multiple values may be concatenated using \"-\". Not all combinations are possible."
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Metrics to load. Multiple values may be concatenated using \"-\". Not all combinations are possible, availability depends on campaign type."
+              },
+              {
+                "name": "countConvention",
+                "value": "",
+                "type": "query",
+                "description": "Conversions counting convention. Required only if any conversion-related metrics is selected."
+              },
+              {
+                "name": "utcOffsetHours",
+                "value": "",
+                "type": "query",
+                "description": "UTC offset (in hours) for date range / time related dimensions."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency to retrieve financial data in. Required only if advertisers with different native currencies are requested."
+              },
+              {
+                "name": "subcampaigns",
+                "value": "",
+                "type": "query",
+                "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+              },
+              {
+                "name": "userSegments",
+                "value": "",
+                "type": "query",
+                "description": "User segments filter. Multiple values may be concatenated using \"-\". Availability depends on campaign type."
+              },
+              {
+                "name": "deviceTypes",
+                "value": "",
+                "type": "query",
+                "description": "Device type filter. Only one device type allowed."
+              }
+            ]
+          },
+          "docs": "Get summary stats for multiple advertisers"
+        },
+        {
+          "info": {
+            "name": "Get last seen tags stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/last-seen-tags-stats",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "dayFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "dayTo",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "subcampaigns",
+                "value": "",
+                "type": "query",
+                "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+              }
+            ]
+          },
+          "docs": "Get last seen tags stats"
+        },
+        {
+          "info": {
+            "name": "Get win rate stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/win-rate-stats",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "dayFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "dayTo",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "subcampaigns",
+                "value": "",
+                "type": "query",
+                "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+              }
+            ]
+          },
+          "docs": "Get win rate stats"
+        },
+        {
+          "info": {
+            "name": "Get top hosts stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/top-hosts-stats",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "dayFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "dayTo",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "subcampaigns",
+                "value": "",
+                "type": "query",
+                "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+              },
+              {
+                "name": "rankedBy",
+                "value": "",
+                "type": "query",
+                "description": "IMPS or CLICKS."
+              }
+            ]
+          },
+          "docs": "Get top hosts stats"
+        },
+        {
+          "info": {
+            "name": "Get top in apps stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/top-in-apps-stats",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "dayFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "dayTo",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "subcampaigns",
+                "value": "",
+                "type": "query",
+                "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+              },
+              {
+                "name": "rankedBy",
+                "value": "",
+                "type": "query",
+                "description": "IMPS or CLICKS."
+              }
+            ]
+          },
+          "docs": "Get top in apps stats"
+        },
+        {
+          "info": {
+            "name": "Get RTB deduplication stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/rtb-deduplication-stats",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "dayFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "dayTo",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "subcampaigns",
+                "value": "",
+                "type": "query",
+                "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+              },
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "userSegments",
+                "value": "",
+                "type": "query",
+                "description": "User segments filter. Multiple values may be concatenated using \"-\". Availability depends on campaign type."
+              }
+            ]
+          },
+          "docs": "Get RTB deduplication stats"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

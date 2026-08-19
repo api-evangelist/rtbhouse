@@ -1,22 +1,61 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.rtbhouse.com/contact, https://www.rtbhouse.com/ (probed 2026-08-13);
+  no /pricing page exists in https://www.rtbhouse.com/sitemap-0.xml
 name: RTB House Plans and Pricing
-description: RTB House does not publish standard tiered pricing plans. Pricing is customized based on campaign objectives, audience size, contract terms, and advertising spend. The platform uses a dynamic Cost per Click (dCPC) model with real-time bidding.
+description: RTB House publishes no pricing page and no plan tiers. The sitemap of
+  www.rtbhouse.com carries no /pricing, /plans or /packages URL, and the site routes
+  every advertiser to a contact form. Pricing is negotiated per advertiser against
+  campaign objectives, market, audience size and spend, on a dynamic CPC (dCPC)
+  performance model. API access is bundled with a Client Panel account rather than sold
+  as a metered developer plan.
 url: https://www.rtbhouse.com
+pricing_page_published: false
+plan_count: 0
+plan_count_note: Zero published tiers. The single entry below is the enterprise
+  "contact us" motion, recorded so the shape is visible — it is not a published plan
+  with a price.
+model: enterprise / negotiated, dynamic CPC (dCPC) performance buying
+free_tier: false
+self_serve_signup: false
+self_serve_note: RTB House's self-service offering is a separate brand, rtb.com, aimed
+  at small and midsize businesses; www.rtbhouse.com/offer/self-service points to it. The
+  Client Panel API documented in this repo belongs to the enterprise RTB House platform.
 plans:
-  - name: Custom Campaign
-    description: Tailored pricing for advertisers based on campaign goals, audience size, and market. Supports retargeting, acquisition, quality traffic, and demand generation campaigns. Contact RTB House for a quote.
-    pricingModel: Custom / dCPC
-    channels:
-      - Display
-      - Video
-      - Mobile
-      - MobileVideo
-    features:
-      - Deep learning-powered optimization
-      - First-party data activation
-      - Dynamic product ads
-      - A/B testing
-      - Campaign analytics
-      - Audience segmentation
-      - API access
-    contact: https://www.rtbhouse.com/contact
-notes: RTB House does not publicly list plan tiers or fixed pricing. All pricing is negotiated directly with the RTB House sales team based on advertiser requirements and spend levels.
+- name: Custom Campaign (contact sales)
+  price: null
+  currency: null
+  billing_period: null
+  included_quota: null
+  overage: null
+  description: Tailored pricing based on campaign goals, audience size, market and
+    committed spend. Covers retargeting, branding, quality traffic and demand
+    generation campaigns.
+  pricingModel: Custom / dCPC
+  channels:
+  - Display
+  - Video
+  - Mobile
+  - MobileVideo
+  features:
+  - Deep learning-powered optimization
+  - First-party data activation
+  - Dynamic product ads
+  - A/B testing
+  - Campaign analytics
+  - Audience segmentation
+  - Client Panel API v5 access
+  limits:
+    api_rate_limits: Per-account resource-usage budget, not published. See
+      ../rate-limits/rtbhouse-rate-limits.yml.
+  contact: https://www.rtbhouse.com/contact
+evidence:
+- url: https://www.rtbhouse.com/contact
+  status: 200
+  note: Real page — "Want to start a campaign? Let's talk!" contact form.
+- url: https://www.rtbhouse.com/sitemap-0.xml
+  status: 200
+  note: 687 lines; no pricing, plans or packages URL.
+notes: An API consumer cannot self-provision. A Client Panel login is issued by the RTB
+  House account team, and the API token is minted afterwards at
+  https://panel.rtbhouse.com/user/api-tokens.

@@ -1,0 +1,381 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Client's panel API docs Advertisers API",
+    "version": "v5"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Advertisers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of advertisers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "List of top level fields to include in response. Multiple values may be concatenated using \",\"."
+              },
+              {
+                "name": "isArchived",
+                "value": "",
+                "type": "query",
+                "description": "Returned only archived/not archived advertisers."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of returned advertisers."
+              }
+            ]
+          },
+          "docs": "Get list of advertisers"
+        },
+        {
+          "info": {
+            "name": "Get advertiser details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              }
+            ]
+          },
+          "docs": "Get advertiser details"
+        },
+        {
+          "info": {
+            "name": "Update advertiser status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/status",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update advertiser status to ACTIVE or PAUSED. Putting isActive as True will make advertiser's status change to ACTIVE, otherwise status will change to PAUSED."
+        },
+        {
+          "info": {
+            "name": "Get client details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/client",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              }
+            ]
+          },
+          "docs": "Get client details"
+        },
+        {
+          "info": {
+            "name": "Get list of offer categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/offer-categories",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              }
+            ]
+          },
+          "docs": "Get list of offer categories"
+        },
+        {
+          "info": {
+            "name": "Get list of offers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/offers",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "categoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Category ids filter. Multiple values may be concatenated using \",\"."
+              },
+              {
+                "name": "identifiers",
+                "value": "",
+                "type": "query",
+                "description": "Offer identifier filter. Multiple values may be concatenated using \",\"."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "How many rows should be returned at most."
+              }
+            ]
+          },
+          "docs": "Get list of offers"
+        },
+        {
+          "info": {
+            "name": "Get list of campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/campaigns",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "excludeArchived",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get list of campaigns"
+        },
+        {
+          "info": {
+            "name": "Update campaign status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/campaigns/:campaignHash/status",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "campaignHash",
+                "value": "",
+                "type": "path",
+                "description": "Campaign hash."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update campaign status to ACTIVE or PAUSED. Putting isActive as True will make campaign's status change to ACTIVE, otherwise status will change to PAUSED."
+        },
+        {
+          "info": {
+            "name": "Get list of bills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/billing",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "dayFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "dayTo",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              }
+            ]
+          },
+          "docs": "Get list of bills"
+        },
+        {
+          "info": {
+            "name": "Get list of RTB creatives",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/rtb-creatives",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "subcampaigns",
+                "value": "",
+                "type": "query",
+                "description": "By default, this means downloading all creatives. If the \"ANY\" value is given as a parameter, creatives that are pinned to any sub-campaigns (paused or active) will be selected. If \"ACTIVE\" is specified, creatives that are pinned to any active sub-campaigns will be selected. You can also enter campaign hashes. Multiple hash values can be combined using the \"-\" sign."
+              },
+              {
+                "name": "activeOnly",
+                "value": "",
+                "type": "query",
+                "description": "Should return only active creatives."
+              }
+            ]
+          },
+          "docs": "Get list of RTB creatives"
+        },
+        {
+          "info": {
+            "name": "Get list of conversions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/conversions",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor returned with previous response."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "How many rows should be returned at most."
+              },
+              {
+                "name": "dayFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "dayTo",
+                "value": "",
+                "type": "query",
+                "description": "Date in format \"YYYY-MM-DD\"."
+              },
+              {
+                "name": "countConvention",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subcampaigns",
+                "value": "",
+                "type": "query",
+                "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+              },
+              {
+                "name": "conversionIdentifier",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This endpoint accepts two types of queries. The first type of query is a query that includes all parameters except the cursor parameter. The result of such a query is a list of conversions and a cursor. Then, to ask for another list of conversions, you need to create a query containing cursor (the cursor returned from the previous query) and optionally limit parameter."
+        },
+        {
+          "info": {
+            "name": "Get list of rate cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.panel.rtbhouse.com/v5/advertisers/:hash/rate-cards",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of advertiser."
+              }
+            ]
+          },
+          "docs": "Get list of rate cards"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

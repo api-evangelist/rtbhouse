@@ -1,25 +1,98 @@
-name: RTB House API Rate Limits
-description: RTB House API v5 rate limit details are not publicly documented. The API is a REST interface available at https://api.panel.rtbhouse.com/v5/ and is accessed by authenticated advertisers. Rate limits are enforced server-side and details are provided to clients upon onboarding.
+generated: '2026-08-13'
+method: searched
+source: https://github.com/rtbhouse-apps/rtbhouse-python-sdk (rtbhouse_sdk/exceptions.py
+  ApiRateLimitException + `_parse_resource_usage_header`, rtbhouse_sdk/client.py
+  `_validate_response`); live header observation on https://api.panel.rtbhouse.com/v5/
+  2026-08-13
+name: RTB House Client Panel API v5 rate limits
+description: >-
+  RTB House does not publish numeric rate limits anywhere on its developer
+  surface — the OpenAPI at api.panel.rtbhouse.com/api/docs says nothing about throttling.
+  The runtime signal, however, is real and specific — the API enforces a RESOURCE-USAGE
+  budget rather than a request count, answers with HTTP 429, and reports consumption per
+  metric and per window in an X-Resource-Usage response header. The header contract is
+  documented here because the provider's own SDK parses it.
 url: https://api.panel.rtbhouse.com/api/docs
 api:
   version: v5
   baseUrl: https://api.panel.rtbhouse.com/v5
+model: resource-usage budget (compute/query cost), not request count
+limit_count: 0
+limit_count_note: Zero NUMERIC limits are published. The metrics and windows below are
+  named by the provider's SDK; the ceilings attached to them are per-account and are
+  disclosed only through the header on a live authenticated call.
+response_signaling:
+  status_on_exhaustion: 429
+  headers:
+  - name: X-Resource-Usage
+    sent_on: 429 responses
+    format: METRIC-WINDOWSECONDS=used/limit, multiple entries joined by ";"
+    example_from_sdk_docstring: WORKER_TIME-3600=11.7/10000000;BQ_TB_BILLED-21600=4.62/2000
+    parsed_as: 'metric -> window(seconds) -> {limit: used}'
+    evidence: rtbhouse_sdk/exceptions.py `_parse_resource_usage_header` docstring and
+      implementation.
+  retry_after: not sent
+  standard_headers:
+    RateLimit-*: absent
+    X-RateLimit-*: absent
+  note: No rate-limit headers are returned on successful or 401 responses — verified on
+    GET /v5/healthcheck (200) and GET /v5/advertisers (401) on 2026-08-13. The signal
+    appears only when the budget is exhausted.
+metrics:
+- metric: WORKER_TIME
+  window_seconds: 3600
+  window: 1 hour
+  meaning: Backend worker compute time consumed by the account's queries.
+  limit: not published
+- metric: BQ_TB_BILLED
+  window_seconds: 21600
+  window: 6 hours
+  meaning: BigQuery terabytes billed by the account's statistics queries — the cost of
+    wide dayFrom/dayTo ranges and large groupBy/metrics selections is charged here.
+  limit: not published
 rateLimits:
-  - scope: General
-    limit: Not publicly specified
-    notes: The RTB House Python SDK documentation mentions being aware of rate limits and response times when making multiple requests. Specific numeric thresholds are not disclosed publicly. Contact RTB House support for per-account limits.
+- scope: per-account resource budget
+  window: rolling, per metric (3600s and 21600s observed)
+  limit: not publicly specified
+  burst: not specified
+  status_code: 429
+  header: X-Resource-Usage
+  notes: Because the budget is denominated in compute rather than calls, a single wide
+    statistics query can exhaust it while thousands of narrow calls do not. Narrow the
+    date window and the groupBy/metrics selection, and cache results, rather than simply
+    slowing the call rate.
+client_guidance:
+- The Python SDK raises ApiRateLimitException on 429 and exposes the parsed budget as
+  `.limits`, so a caller can read exactly which metric and window was exhausted.
+- No Retry-After is provided; back off until the named window (3600s or 21600s) rolls
+  over.
+- SDK default request timeout is 60 seconds.
+- Conversions are paged with a cursor at a maximum of 10000 rows per request
+  (MAX_CURSOR_ROWS), which bounds a single call's cost.
 authentication:
   schemes:
-    - type: Basic
-      description: HTTP Basic authentication with username and password credentials
-    - type: Bearer
-      description: Bearer token authentication with automatic token rotation support via the SDK's ApiTokenManager
+  - type: Bearer
+    description: >-
+      API token minted in the Clients Panel (https://panel.rtbhouse.com/user/api-tokens),
+      sent as an Authorization header carrying `Bearer <token>`.
+  - type: Token
+    description: >-
+      Fixed API token sent as an Authorization header carrying `Token <token>`
+      (SDK BasicTokenAuth).
+  - type: Basic
+    description: HTTP Basic with a panel username and password.
   tokenRotation:
     supported: true
-    description: The Python SDK provides an ApiTokenManager class for automatic token lifecycle management, including rotation when the token enters its rotation window.
+    operation: POST /tokens/current/rotate
+    description: The Python SDK's ApiTokenManager rotates automatically once a token
+      enters its rotation window; `keep-alive-json` refreshes an idle token.
 sdks:
-  - language: Python
-    url: https://github.com/rtbhouse-apps/rtbhouse-python-sdk
-  - language: PHP
-    url: https://github.com/rtbhouse-apps/rtbhouse-php-sdk
-notes: For specific rate limit thresholds, refer to the official API documentation at https://api.panel.rtbhouse.com/api/docs or contact RTB House developer support.
+- language: Python
+  url: https://github.com/rtbhouse-apps/rtbhouse-python-sdk
+- language: PHP
+  url: https://github.com/rtbhouse-apps/rtbhouse-php-sdk
+see_also:
+  conventions: ../conventions/rtbhouse-conventions.yml
+  errors: ../errors/rtbhouse-problem-types.yml
+notes: For the numeric ceiling on a given account, read X-Resource-Usage from a live 429
+  or contact RTB House support. Nothing in the public documentation states it.

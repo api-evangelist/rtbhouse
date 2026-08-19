@@ -1,0 +1,1291 @@
+{
+  "item": [
+    {
+      "id": "03242ffa-0448-4782-8bf9-29a8ecc0776c",
+      "name": "Statistics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2b3e19f4-5e9e-4e9a-8ac5-9b1f10829eec",
+          "name": "Get RTB stats",
+          "request": {
+            "name": "Get RTB stats",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "rtb-stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dayFrom",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayTo",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "groupBy",
+                  "value": "<string>",
+                  "description": "(Required) Stats grouping. Multiple values may be concatenated using \"-\". Not all combinations are possible."
+                },
+                {
+                  "disabled": false,
+                  "key": "metrics",
+                  "value": "<string>",
+                  "description": "(Required) Metrics to load. Multiple values may be concatenated using \"-\". Not all combinations are possible."
+                },
+                {
+                  "disabled": false,
+                  "key": "countConvention",
+                  "value": "<string>",
+                  "description": "Conversions counting convention. Required only if any conversion-related metrics is selected."
+                },
+                {
+                  "disabled": false,
+                  "key": "utcOffsetHours",
+                  "value": "<integer>",
+                  "description": "UTC offset (in hours) for date range / time related dimensions. Non-zero value reduces number of possible dimensions. Missing value defaults to 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "subcampaigns",
+                  "value": "<string>",
+                  "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "userSegments",
+                  "value": "<string>",
+                  "description": "User segments filter. Multiple values may be concatenated using \"-\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceTypes",
+                  "value": "<string>",
+                  "description": "Device type filter. Only one device type allowed."
+                },
+                {
+                  "disabled": false,
+                  "key": "creativeNamesFamilies",
+                  "value": "<string>",
+                  "description": "Creative names families filter. Multiple values may be concatenated using \"-\"."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7cc19c3e-cf03-427f-8de9-63d1a769d662",
+              "name": "RTB statistics data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "rtb-stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dayFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "countConvention",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "utcOffsetHours",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "subcampaigns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userSegments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creativeNamesFamilies",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [],\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "135fb540-d495-4f3a-9ded-2c4135dbb2a0",
+          "name": "Get summary stats",
+          "request": {
+            "name": "Get summary stats",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "summary-stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dayFrom",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayTo",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "groupBy",
+                  "value": "<string>",
+                  "description": "(Required) Stats grouping. Multiple values may be concatenated using \"-\". Not all combinations are possible."
+                },
+                {
+                  "disabled": false,
+                  "key": "metrics",
+                  "value": "<string>",
+                  "description": "(Required) Metrics to load. Multiple values may be concatenated using \"-\". Not all combinations are possible."
+                },
+                {
+                  "disabled": false,
+                  "key": "countConvention",
+                  "value": "<string>",
+                  "description": "Conversions counting convention. Required only if any conversion-related metrics is selected."
+                },
+                {
+                  "disabled": false,
+                  "key": "utcOffsetHours",
+                  "value": "<integer>",
+                  "description": "UTC offset (in hours) for date range / time related dimensions."
+                },
+                {
+                  "disabled": false,
+                  "key": "subcampaigns",
+                  "value": "<string>",
+                  "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceTypes",
+                  "value": "<string>",
+                  "description": "Device type filter. Only one device type allowed."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ff20751-aadd-437b-8cb1-4c441856bce3",
+              "name": "Summary statistics data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "summary-stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dayFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "countConvention",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "utcOffsetHours",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "subcampaigns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceTypes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [],\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8992611c-beef-4558-b57f-bd04a5fc602b",
+          "name": "Get summary stats for multiple advertisers",
+          "request": {
+            "name": "Get summary stats for multiple advertisers",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers-summary-stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "advertisers",
+                  "value": "<string>",
+                  "description": "Advertisers filter. Hash of advertiser. Multiple values may be concatenated using \",\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "campaignType",
+                  "value": "<string>",
+                  "description": "(Required) Type of campaign to filter advertisers by. Advertisers belonging to different types cannot be fetched at once."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayFrom",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayTo",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "groupBy",
+                  "value": "<string>",
+                  "description": "(Required) Stats grouping. Multiple values may be concatenated using \"-\". Not all combinations are possible."
+                },
+                {
+                  "disabled": false,
+                  "key": "metrics",
+                  "value": "<string>",
+                  "description": "(Required) Metrics to load. Multiple values may be concatenated using \"-\". Not all combinations are possible, availability depends on campaign type."
+                },
+                {
+                  "disabled": false,
+                  "key": "countConvention",
+                  "value": "<string>",
+                  "description": "Conversions counting convention. Required only if any conversion-related metrics is selected."
+                },
+                {
+                  "disabled": false,
+                  "key": "utcOffsetHours",
+                  "value": "<integer>",
+                  "description": "UTC offset (in hours) for date range / time related dimensions."
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "Currency to retrieve financial data in. Required only if advertisers with different native currencies are requested."
+                },
+                {
+                  "disabled": false,
+                  "key": "subcampaigns",
+                  "value": "<string>",
+                  "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "userSegments",
+                  "value": "<string>",
+                  "description": "User segments filter. Multiple values may be concatenated using \"-\". Availability depends on campaign type."
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceTypes",
+                  "value": "<string>",
+                  "description": "Device type filter. Only one device type allowed."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "62f974f0-b090-402a-af3a-3a3d6eb19dc7",
+              "name": "Summary statistics for multiple advertisers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers-summary-stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "advertisers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "campaignType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "countConvention",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "utcOffsetHours",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subcampaigns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userSegments",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceTypes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [],\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3040f3b3-b64a-4673-b31e-653fbf7ba153",
+          "name": "Get last seen tags stats",
+          "request": {
+            "name": "Get last seen tags stats",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "last-seen-tags-stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dayFrom",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayTo",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "subcampaigns",
+                  "value": "<string>",
+                  "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d691d657-8c6a-4387-bcf4-e8df5b47042a",
+              "name": "Last seen tags stats.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "last-seen-tags-stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dayFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subcampaigns",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": [\n    {\n      \"lastTagHour\": \"string\",\n      \"impsCount\": {},\n      \"clicksCount\": {}\n    },\n    {\n      \"lastTagHour\": \"string\",\n      \"impsCount\": {},\n      \"clicksCount\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d714112c-8f69-46d8-94da-f9f1660f8bce",
+          "name": "Get win rate stats",
+          "request": {
+            "name": "Get win rate stats",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "win-rate-stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dayFrom",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayTo",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "subcampaigns",
+                  "value": "<string>",
+                  "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9db9401-ac9f-400d-99ca-e0bf8c3faadc",
+              "name": "Win rate statistics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "win-rate-stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dayFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subcampaigns",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": [\n    {\n      \"day\": \"2007-08-01\",\n      \"won\": 8910.04469125698,\n      \"total\": 4016.5439318676654\n    },\n    {\n      \"day\": \"1968-05-04\",\n      \"won\": 7232.6683692491415,\n      \"total\": 6501.88621489008\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b4f8465-2d50-480a-8fc1-f75ed6f57928",
+          "name": "Get top hosts stats",
+          "request": {
+            "name": "Get top hosts stats",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "top-hosts-stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dayFrom",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayTo",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "subcampaigns",
+                  "value": "<string>",
+                  "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "rankedBy",
+                  "value": "<string>",
+                  "description": "(Required) IMPS or CLICKS."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5867436-edc6-4715-88f2-bbe74ce0cd16",
+              "name": "Top hosts statistics ranked by impressions or clicks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "top-hosts-stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dayFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subcampaigns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rankedBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": [\n    {\n      \"host\": \"string\",\n      \"value\": 2580.514219759581\n    },\n    {\n      \"host\": \"string\",\n      \"value\": 6791.856161932654\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4a18779-eade-464f-85e2-5f464cef5f2a",
+          "name": "Get top in apps stats",
+          "request": {
+            "name": "Get top in apps stats",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "top-in-apps-stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dayFrom",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayTo",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "subcampaigns",
+                  "value": "<string>",
+                  "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "rankedBy",
+                  "value": "<string>",
+                  "description": "(Required) IMPS or CLICKS."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "94f8fb13-0720-412f-ab36-52d81df4eed7",
+              "name": "Top in-app statistics ranked by impressions or clicks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "top-in-apps-stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dayFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subcampaigns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rankedBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": [\n    {\n      \"appName\": \"string\",\n      \"value\": 5105.647722023347\n    },\n    {\n      \"appName\": \"string\",\n      \"value\": 3305.3070756420457\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc889130-f82c-4f5a-9050-ba98208a427f",
+          "name": "Get RTB deduplication stats",
+          "request": {
+            "name": "Get RTB deduplication stats",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "rtb-deduplication-stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dayFrom",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayTo",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "subcampaigns",
+                  "value": "<string>",
+                  "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "groupBy",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "userSegments",
+                  "value": "<string>",
+                  "description": "User segments filter. Multiple values may be concatenated using \"-\". Availability depends on campaign type."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59c5f5ca-2567-494a-8d0c-5ab6d03a38e3",
+              "name": "RTB deduplication statistics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "rtb-deduplication-stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dayFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subcampaigns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userSegments",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.panel.rtbhouse.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ade41c33-460f-47d4-9206-bf3f56257876",
+    "name": "Client's panel API docs Advertisers Statistics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RTB House Client Panel REST API for managing advertisers, campaigns, product offers, audiences,\nRTB creatives, conversions, and accessing performance statistics. Supports campaign management,\nbilling retrieval, and detailed analytics including RTB stats, win-rate stats, top hosts, and\ndeduplication stats.\n\nAuthentication scheme types:\n| Security Scheme Type      | HTTP   |\n| ------------------------- | ------ |\n| HTTP Authorization Scheme | Basic  |\n| HTTP Authorization Scheme | Bearer |\n",
+      "type": "text/plain"
+    }
+  }
+}

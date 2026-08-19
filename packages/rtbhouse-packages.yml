@@ -1,0 +1,84 @@
+generated: '2026-08-13'
+method: searched
+source: https://pypi.org/pypi/rtbhouse-sdk/json, https://repo.packagist.org/p2/rtbhouse/sdk.json,
+  https://registry.npmjs.org/@rtbhouse/google-iap-auth, https://github.com/rtbhouse-apps
+name: RTB House client libraries
+description: First-party client libraries for the RTB House Client Panel API v5, published
+  by the RTB House Apps Team from the rtbhouse-apps GitHub organization. Registry metadata
+  read live from PyPI, Packagist and the npm registry on 2026-08-13.
+packages:
+- language: python
+  registry: pypi
+  name: rtbhouse-sdk
+  url: https://pypi.org/project/rtbhouse-sdk/
+  install: pip install rtbhouse_sdk
+  repository: https://github.com/rtbhouse-apps/rtbhouse-python-sdk
+  official: true
+  version: 16.1.0
+  published: '2026-07-15'
+  license: MIT
+  note: Maintained by the RTB House Apps Team (apps@rtbhouse.com). Sync and async clients,
+    cursor pagination for conversions, and an ApiTokenManager that rotates the API
+    token automatically. Ships the only first-party CLI (python -m rtbhouse_sdk.api_tokens).
+    Release cadence is current — 16.1.0 shipped four weeks before this probe.
+- language: php
+  registry: packagist
+  name: rtbhouse/sdk
+  url: https://packagist.org/packages/rtbhouse/sdk
+  install: composer require rtbhouse/sdk
+  repository: https://github.com/rtbhouse-apps/rtbhouse-php-sdk
+  official: true
+  version: 8.1.2
+  published: '2026-03-12'
+  note: 18 published releases. Trails the Python SDK — 8.1.0 added utcOffsetHours for
+    getRtbStats/getSummaryStats, which the Python SDK carried earlier.
+- language: javascript
+  registry: npm
+  name: '@rtbhouse/google-iap-auth'
+  url: https://www.npmjs.com/package/@rtbhouse/google-iap-auth
+  install: npm install @rtbhouse/google-iap-auth
+  repository: https://github.com/rtbhouse-apps/google-iap-auth-nodejs
+  official: true
+  version: 0.1.2
+  published: '2020-01-22'
+  note: 'NOT a Client Panel API SDK — a helper for calling Google Cloud IAP-protected
+    resources, published under the RTB House npm scope. ABANDONMENT SIGNAL: last release
+    2020-01-22 and the repository it names now returns HTTP 404, so the package is
+    published with no reachable source. RTB House ships no JavaScript/TypeScript client
+    for the v5 API.'
+languages_covered:
+- python
+- php
+languages_absent:
+- javascript
+- typescript
+- java
+- go
+- ruby
+- dotnet
+- rust
+registries_checked:
+- registry: pypi
+  result: hit
+- registry: packagist
+  result: hit
+- registry: npm
+  result: one scoped helper package only; no v5 API client
+- registry: maven-central
+  result: none found
+- registry: nuget
+  result: none found
+- registry: pkg.go.dev
+  result: none found
+- registry: rubygems
+  result: none found
+- registry: crates.io
+  result: none found
+github_organization:
+  url: https://github.com/rtbhouse-apps
+  public_repositories:
+  - rtbhouse-python-sdk
+  - rtbhouse-php-sdk
+  - pg-stream-copy
+  - renovate-config-public
+  note: Only four public repositories; the two SDKs are the only API-facing ones.

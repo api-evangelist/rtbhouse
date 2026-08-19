@@ -1,0 +1,113 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: openapi/_original/rtbhouse-client-panel-openapi.yml
+name: RTB House Client Panel API — candidate MCP tool surface
+description: RTB House publishes NO MCP server. No hosted endpoint, no stdio package, no
+  mention in the docs, the SDKs, the GitHub organization or the corporate llms.txt. The
+  tool list below is DERIVED from the 23 operations of the published OpenAPI as a
+  candidate design; nothing here is served by RTB House today.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+  note: Searched the RTB House developer docs, both first-party SDK repositories, the
+    four public repos in github.com/rtbhouse-apps, the npm @rtbhouse scope, PyPI and
+    Packagist, and probed /.well-known/* on every RTB House host. No MCP server exists.
+    No endpoint URL is invented here.
+server:
+  name: rtbhouse
+  transport: null
+  url: null
+backing_api:
+  base_url: https://api.panel.rtbhouse.com/v5
+  auth: Bearer API token from https://panel.rtbhouse.com/user/api-tokens
+  note: Any MCP server would inherit a per-account resource-usage budget (HTTP 429 +
+    X-Resource-Usage) — see ../rate-limits/rtbhouse-rate-limits.yml. Statistics tools
+    are the expensive ones.
+tools:
+- name: get_user_info
+  description: Get details about the authenticated user, including permissions.
+  source_operation: openapi/rtbhouse-user-api-openapi.yml#GET /user/info
+- name: rotate_api_token
+  description: Rotate the current API token and return the new token and its expiry.
+  source_operation: openapi/rtbhouse-tokens-api-openapi.yml#POST /tokens/current/rotate
+  consequence: write — invalidates the credential in use; not safe to call speculatively.
+- name: healthcheck
+  description: Check API server status. Unauthenticated.
+  source_operation: openapi/rtbhouse-dev-api-openapi.yml#GET /healthcheck
+- name: list_advertisers
+  description: List advertisers available to the authenticated user.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#GET /advertisers
+- name: get_advertiser
+  description: Get details of one advertiser by hash.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#GET /advertisers/{hash}
+- name: update_advertiser_status
+  description: Update an advertiser's status.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#PUT /advertisers/{hash}/status
+  consequence: write — pauses or resumes live ad delivery and spend.
+- name: get_advertiser_client
+  description: Get the client (invoicing counterparty) for an advertiser.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#GET /advertisers/{hash}/client
+- name: list_offer_categories
+  description: List product offer categories for an advertiser.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#GET /advertisers/{hash}/offer-categories
+- name: list_offers
+  description: List product feed offers for an advertiser.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#GET /advertisers/{hash}/offers
+- name: list_campaigns
+  description: List campaigns for an advertiser.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#GET /advertisers/{hash}/campaigns
+- name: update_campaign_status
+  description: Update a campaign's status.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#PUT /advertisers/{hash}/campaigns/{campaignHash}/status
+  consequence: write — pauses or resumes campaign delivery and spend.
+- name: list_bills
+  description: Get the billing ledger and initial balance for an advertiser.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#GET /advertisers/{hash}/billing
+- name: list_rtb_creatives
+  description: List RTB creatives for an advertiser.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#GET /advertisers/{hash}/rtb-creatives
+- name: list_conversions
+  description: List conversions for an advertiser over a date range. Cursor-paged.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#GET /advertisers/{hash}/conversions
+- name: list_rate_cards
+  description: List rate cards for an advertiser.
+  source_operation: openapi/rtbhouse-advertisers-api-openapi.yml#GET /advertisers/{hash}/rate-cards
+- name: get_rtb_stats
+  description: RTB statistics for an advertiser over a date range, by chosen groupBy
+    dimensions and metrics.
+  source_operation: openapi/rtbhouse-statistics-api-openapi.yml#GET /advertisers/{hash}/rtb-stats
+- name: get_summary_stats
+  description: Summary statistics for one advertiser.
+  source_operation: openapi/rtbhouse-statistics-api-openapi.yml#GET /advertisers/{hash}/summary-stats
+- name: get_advertisers_summary_stats
+  description: Summary statistics across multiple advertisers.
+  source_operation: openapi/rtbhouse-statistics-api-openapi.yml#GET /advertisers-summary-stats
+- name: get_last_seen_tags_stats
+  description: Last-seen tag statistics for an advertiser.
+  source_operation: openapi/rtbhouse-statistics-api-openapi.yml#GET /advertisers/{hash}/last-seen-tags-stats
+- name: get_win_rate_stats
+  description: Daily auction win-rate statistics for an advertiser.
+  source_operation: openapi/rtbhouse-statistics-api-openapi.yml#GET /advertisers/{hash}/win-rate-stats
+- name: get_top_hosts_stats
+  description: Top publisher hosts by value for an advertiser.
+  source_operation: openapi/rtbhouse-statistics-api-openapi.yml#GET /advertisers/{hash}/top-hosts-stats
+- name: get_top_in_apps_stats
+  description: Top in-app placements by value for an advertiser.
+  source_operation: openapi/rtbhouse-statistics-api-openapi.yml#GET /advertisers/{hash}/top-in-apps-stats
+- name: get_rtb_deduplication_stats
+  description: RTB deduplication statistics for an advertiser.
+  source_operation: openapi/rtbhouse-statistics-api-openapi.yml#GET /advertisers/{hash}/rtb-deduplication-stats
+coverage:
+  openapi_operations: 23
+  candidate_tools: 23
+  published_tools: 0
+caveats:
+- The published spec declares no operationId on any operation, so each tool above is
+  bound by HTTP method plus path rather than by an operation identifier.
+- The three statistics families return rows whose columns are decided by the groupBy and
+  metrics query parameters, so a tool wrapping them cannot publish a fixed output schema.

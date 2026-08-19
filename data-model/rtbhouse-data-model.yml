@@ -1,0 +1,167 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/rtbhouse-client-panel-openapi.yml (23 operations), cross-checked
+  against the live spec at https://api.panel.rtbhouse.com/api/docs/openapi.yaml
+name: RTB House Client Panel API v5 data model
+description: >-
+  Entity-relationship graph derived from the response schemas of the RTB House
+  Client Panel API v5. The spec declares no components.schemas — every payload is inlined
+  per operation — so entities below are named from the resource path and their fields
+  read from the inline object schemas. The graph is strongly advertiser-centric — every
+  resource except User and ApiToken hangs off /advertisers/{hash}.
+root_entity: Advertiser
+identifier_style: opaque hash strings; no typed prefixes. The advertiser identifier is
+  called `hash` in paths and payloads, `hashId` on User.
+entities:
+- name: User
+  path: GET /user/info
+  fields: [hashId, login, email, isClientUser, isDemoUser, permissions]
+  note: The authenticated principal. `permissions` is a string array — the closest thing
+    the API has to a scope model. `isDemoUser` flags a demonstration account.
+- name: ApiToken
+  path: POST /tokens/current/rotate
+  fields: [token, expiresAt]
+  note: Write-only rotation result; there is no read operation for the current token.
+- name: Advertiser
+  paths:
+  - GET /advertisers
+  - GET /advertisers/{hash}
+  - PUT /advertisers/{hash}/status
+  key: hash
+  fields: [hash, name, status, url, currency, country, createdAt, features, featuresGroup,
+    feedIdentifier, properties, version]
+  note: The list projection omits country, featuresGroup and version — the detail
+    projection is wider than the collection projection.
+- name: Client
+  path: GET /advertisers/{hash}/client
+  fields: [invoicing]
+  note: Billing counterparty of an advertiser.
+- name: OfferCategory
+  path: GET /advertisers/{hash}/offer-categories
+  key: categoryId
+  fields: [categoryId, identifier, name, activeOffersNumber]
+- name: Offer
+  path: GET /advertisers/{hash}/offers
+  key: id
+  fields: [id, identifier, name, fullName, categoryName, price, currency, url, images,
+    status, customProperties, updatedAt]
+  note: A product-feed item. Linked to OfferCategory by `categoryName`, a NAME rather
+    than the category's id — a soft reference.
+- name: Campaign
+  path: GET /advertisers/{hash}/campaigns
+  key: hash
+  fields: [hash, name, campaignType, status, isEditable, creativeIds, rateCardId,
+    advertiserLimits, updatedAt]
+- name: RtbCreative
+  path: GET /advertisers/{hash}/rtb-creatives
+  key: hash
+  fields: [hash, names, previews, status]
+- name: RateCard
+  path: GET /advertisers/{hash}/rate-cards
+  key: id
+  fields: [id, version, cpc, cpm, cpaPostClick, cpaPostView, cpsPostClick, cpsPostView]
+- name: Bill
+  path: GET /advertisers/{hash}/billing
+  fields: [day, operation, position, credit, debit, balance, recordNumber]
+  container_fields: [bills, initialBalance]
+  note: Returned inside a container object carrying `initialBalance`; a ledger, not a
+    keyed resource.
+- name: Conversion
+  path: GET /advertisers/{hash}/conversions
+  key: conversionHash
+  fields: [conversionHash, conversionIdentifier, conversionClass, conversionTime,
+    conversionValue, commissionValue, cookieHash, lastClickTime, lastImpressionTime]
+  pagination: cursor — container carries {rows, total, nextCursor}
+- name: RtbStatsRow
+  paths:
+  - GET /advertisers/{hash}/rtb-stats
+  - GET /advertisers/{hash}/summary-stats
+  - GET /advertisers-summary-stats
+  - GET /advertisers/{hash}/rtb-deduplication-stats
+  fields: dynamic
+  note: 'Schema-less by design: the spec says "Object contains selected groupBy fields +
+    selected metric fields." Shape is decided by the groupBy and metrics query
+    parameters, so no fixed contract exists for an agent to bind to.'
+- name: WinRateStatsRow
+  path: GET /advertisers/{hash}/win-rate-stats
+  fields: [day, won, total]
+- name: LastSeenTagsStatsRow
+  path: GET /advertisers/{hash}/last-seen-tags-stats
+  fields: [lastTagHour, impsCount, clicksCount]
+- name: TopHostsStatsRow
+  path: GET /advertisers/{hash}/top-hosts-stats
+  fields: [host, value]
+- name: TopInAppsStatsRow
+  path: GET /advertisers/{hash}/top-in-apps-stats
+  fields: [appName, value]
+relationships:
+- from: Advertiser
+  to: Client
+  type: has_one
+  via: path /advertisers/{hash}/client
+- from: Advertiser
+  to: Campaign
+  type: has_many
+  via: path /advertisers/{hash}/campaigns
+- from: Advertiser
+  to: Offer
+  type: has_many
+  via: path /advertisers/{hash}/offers
+- from: Advertiser
+  to: OfferCategory
+  type: has_many
+  via: path /advertisers/{hash}/offer-categories
+- from: Advertiser
+  to: RtbCreative
+  type: has_many
+  via: path /advertisers/{hash}/rtb-creatives
+- from: Advertiser
+  to: RateCard
+  type: has_many
+  via: path /advertisers/{hash}/rate-cards
+- from: Advertiser
+  to: Bill
+  type: has_many
+  via: path /advertisers/{hash}/billing
+- from: Advertiser
+  to: Conversion
+  type: has_many
+  via: path /advertisers/{hash}/conversions
+- from: Campaign
+  to: RtbCreative
+  type: has_many
+  via: field creativeIds
+  confidence: high
+  note: creativeIds on Campaign holds RtbCreative identifiers.
+- from: Campaign
+  to: RateCard
+  type: belongs_to
+  via: field rateCardId
+  confidence: high
+- from: Offer
+  to: OfferCategory
+  type: belongs_to
+  via: field categoryName
+  confidence: medium
+  note: Joined by category NAME, not categoryId — a lossy reference if two categories
+    share a name.
+- from: User
+  to: RateCard
+  type: belongs_to
+  via: field rate_card_id on UserInfo
+  confidence: medium
+  note: Present in the SDK schema (rtbhouse-python-sdk CHANGELOG v11.0.0 renamed
+    rateCardId to rate_card_id on UserInfo); not exposed in the published /user/info
+    response schema.
+- from: Conversion
+  to: Advertiser
+  type: belongs_to
+  via: path scope
+observations:
+- No components.schemas exist anywhere in the spec, so nothing is reusable and every
+  entity is redefined inline per operation.
+- The three statistics families return untyped rows whose columns depend on query
+  parameters; a code generator produces nothing usable for them.
+- Writes are limited to two status toggles (advertiser, campaign) and one token
+  rotation. This is a read/reporting API with a thin control surface.
+render: null

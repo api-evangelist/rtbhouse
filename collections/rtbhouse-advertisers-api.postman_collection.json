@@ -1,0 +1,1449 @@
+{
+  "item": [
+    {
+      "id": "4d231f36-e8bb-4414-af4f-32b537c3da4f",
+      "name": "Advertisers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4300813f-ff44-4335-94e9-ffdbb0fd7ad9",
+          "name": "Get list of advertisers",
+          "request": {
+            "name": "Get list of advertisers",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "List of top level fields to include in response. Multiple values may be concatenated using \",\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "isArchived",
+                  "value": "<boolean>",
+                  "description": "Returned only archived/not archived advertisers."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Limit the number of returned advertisers."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ba2951ba-97ee-47e3-a843-7423927b90f4",
+              "name": "List of advertisers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isArchived",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": [\n    {\n      \"hash\": \"string\",\n      \"status\": \"NEW\",\n      \"name\": \"string\",\n      \"currency\": \"string\",\n      \"url\": \"string\",\n      \"createdAt\": \"string\",\n      \"features\": {\n        \"enabled\": [\n          \"string\",\n          \"string\"\n        ],\n        \"countConvention\": {\n          \"RTB\": [\n            {\n              \"value\": \"ALL_CONVERSIONS\",\n              \"hidden\": false,\n              \"text\": \"string\"\n            },\n            {\n              \"value\": \"ALL_CONVERSIONS\",\n              \"hidden\": false,\n              \"text\": \"string\"\n            }\n          ]\n        }\n      },\n      \"properties\": {\n        \"campaignType\": \"BRANDING\",\n        \"isArchived\": true,\n        \"permissions\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    {\n      \"hash\": \"string\",\n      \"status\": \"READY\",\n      \"name\": \"string\",\n      \"currency\": \"string\",\n      \"url\": \"string\",\n      \"createdAt\": \"string\",\n      \"features\": {\n        \"enabled\": [\n          \"string\",\n          \"string\"\n        ],\n        \"countConvention\": {\n          \"RTB\": [\n            {\n              \"value\": \"POST_VIEW\",\n              \"hidden\": false,\n              \"text\": \"string\"\n            },\n            {\n              \"value\": \"POST_VIEW\",\n              \"hidden\": false,\n              \"text\": \"string\"\n            }\n          ]\n        }\n      },\n      \"properties\": {\n        \"campaignType\": \"BRANDING\",\n        \"isArchived\": false,\n        \"permissions\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f45e31af-69d6-42f5-ae66-5561c41003fe",
+          "name": "Get advertiser details",
+          "request": {
+            "name": "Get advertiser details",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "593c4f16-6f20-4cf5-970c-601ae44492d1",
+              "name": "Advertiser details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"hash\": \"string\",\n    \"status\": \"NEW\",\n    \"name\": \"string\",\n    \"currency\": \"string\",\n    \"url\": \"string\",\n    \"properties\": {\n      \"minimalCpc\": 5410.318277556642,\n      \"maximalCpc\": 2365.907379471407,\n      \"contactPerson\": [\n        {\n          \"login\": \"string\",\n          \"email\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"login\": \"string\",\n          \"email\": \"string\",\n          \"name\": \"string\"\n        }\n      ],\n      \"campaignType\": \"BRANDING\"\n    },\n    \"createdAt\": \"string\",\n    \"version\": \"string\",\n    \"feedIdentifier\": \"string\",\n    \"country\": \"string\",\n    \"features\": {\n      \"enabled\": [\n        \"string\",\n        \"string\"\n      ],\n      \"countConvention\": {\n        \"RTB\": [\n          {\n            \"value\": \"ATTRIBUTED\",\n            \"hidden\": true,\n            \"text\": \"string\"\n          },\n          {\n            \"value\": \"POST_VIEW\",\n            \"hidden\": false,\n            \"text\": \"string\"\n          }\n        ]\n      }\n    },\n    \"featuresGroup\": [\n      {\n        \"enabled\": [\n          \"string\",\n          \"string\"\n        ],\n        \"campaignType\": \"PERFORMANCE\"\n      },\n      {\n        \"enabled\": [\n          \"string\",\n          \"string\"\n        ],\n        \"campaignType\": \"BRANDING\"\n      }\n    ]\n  },\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63fa39f1-cef3-4f16-9783-0518e4349a8c",
+          "name": "Update advertiser status",
+          "request": {
+            "name": "Update advertiser status",
+            "description": {
+              "content": "Update advertiser status to ACTIVE or PAUSED. Putting isActive as True will make advertiser's status change to ACTIVE, otherwise status will change to PAUSED.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7106dd38-8101-418e-bb5f-9df120be2125",
+              "name": "Updated advertiser details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"isActive\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"hash\": \"string\",\n    \"status\": \"PAUSED\",\n    \"name\": \"string\",\n    \"currency\": \"string\",\n    \"url\": \"string\",\n    \"properties\": {\n      \"minimalCpc\": 4228.3898970075525,\n      \"maximalCpc\": 8303.253765131352,\n      \"contactPerson\": [\n        {\n          \"login\": \"string\",\n          \"email\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"login\": \"string\",\n          \"email\": \"string\",\n          \"name\": \"string\"\n        }\n      ],\n      \"campaignType\": \"PERFORMANCE\"\n    },\n    \"createdAt\": \"string\",\n    \"version\": \"string\",\n    \"feedIdentifier\": \"string\",\n    \"country\": \"string\",\n    \"features\": {\n      \"enabled\": [\n        \"string\",\n        \"string\"\n      ],\n      \"countConvention\": {\n        \"RTB\": [\n          {\n            \"value\": \"ALL_POST_CLICK\",\n            \"hidden\": true,\n            \"text\": \"string\"\n          },\n          {\n            \"value\": \"POST_VIEW\",\n            \"hidden\": false,\n            \"text\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "542699a5-5ee2-4b11-8f01-48228afa1852",
+          "name": "Get client details",
+          "request": {
+            "name": "Get client details",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "client"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4577e161-49ed-4209-b76a-6d7ca5b94265",
+              "name": "Client invoicing details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "client"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"invoicing\": {\n      \"vat_number\": \"string\",\n      \"company_name\": \"string\",\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"postal_code\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"email\": \"string\"\n    }\n  },\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ea8d632-081d-4e16-a522-d72b0d5046c2",
+          "name": "Get list of offer categories",
+          "request": {
+            "name": "Get list of offer categories",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "offer-categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e652910-c45b-419e-9460-fa7cffd5389e",
+              "name": "List of offer categories.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "offer-categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"categoryId\": \"string\",\n      \"identifier\": \"string\",\n      \"name\": \"string\",\n      \"activeOffersNumber\": 5734\n    },\n    {\n      \"categoryId\": \"string\",\n      \"identifier\": \"string\",\n      \"name\": \"string\",\n      \"activeOffersNumber\": 7936\n    }\n  ],\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8566767-0407-4e23-8163-bf6b08f53d05",
+          "name": "Get list of offers",
+          "request": {
+            "name": "Get list of offers",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "offers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "categoryIds",
+                  "value": "<string>",
+                  "description": "Category ids filter. Multiple values may be concatenated using \",\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "identifiers",
+                  "value": "<string>",
+                  "description": "Offer identifier filter. Multiple values may be concatenated using \",\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "1000",
+                  "description": "How many rows should be returned at most."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5130fe9a-9da9-4886-8bb6-9c5bfba0c222",
+              "name": "List of offers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "categoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifiers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"url\": \"string\",\n      \"fullName\": \"string\",\n      \"identifier\": \"string\",\n      \"id\": \"string\",\n      \"images\": [\n        {\n          \"added\": \"string\",\n          \"width\": \"string\",\n          \"updated\": \"string\",\n          \"url\": \"string\",\n          \"hash\": \"string\",\n          \"height\": \"string\",\n          \"etag\": \"string\"\n        },\n        {\n          \"added\": \"string\",\n          \"width\": \"string\",\n          \"updated\": \"string\",\n          \"url\": \"string\",\n          \"hash\": \"string\",\n          \"height\": \"string\",\n          \"etag\": \"string\"\n        }\n      ],\n      \"price\": 6933.557143440293,\n      \"currency\": \"string\",\n      \"name\": \"string\",\n      \"categoryName\": \"string\",\n      \"customProperties\": {},\n      \"updatedAt\": \"string\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"url\": \"string\",\n      \"fullName\": \"string\",\n      \"identifier\": \"string\",\n      \"id\": \"string\",\n      \"images\": [\n        {\n          \"added\": \"string\",\n          \"width\": \"string\",\n          \"updated\": \"string\",\n          \"url\": \"string\",\n          \"hash\": \"string\",\n          \"height\": \"string\",\n          \"etag\": \"string\"\n        },\n        {\n          \"added\": \"string\",\n          \"width\": \"string\",\n          \"updated\": \"string\",\n          \"url\": \"string\",\n          \"hash\": \"string\",\n          \"height\": \"string\",\n          \"etag\": \"string\"\n        }\n      ],\n      \"price\": 2367.153680749895,\n      \"currency\": \"string\",\n      \"name\": \"string\",\n      \"categoryName\": \"string\",\n      \"customProperties\": {},\n      \"updatedAt\": \"string\",\n      \"status\": \"PAUSED\"\n    }\n  ],\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2c526d7-6046-4262-9918-6758a8c7b5b1",
+          "name": "Get list of campaigns",
+          "request": {
+            "name": "Get list of campaigns",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "campaigns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "excludeArchived",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d033dc3-8f00-4655-bab3-bae0f63145a3",
+              "name": "List of campaigns.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "excludeArchived",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"hash\": \"string\",\n      \"name\": \"string\",\n      \"creativeIds\": [\n        7615,\n        584\n      ],\n      \"status\": \"ACTIVE\",\n      \"campaignType\": \"BRANDING\",\n      \"updatedAt\": \"string\",\n      \"rateCardId\": \"string\",\n      \"isEditable\": true,\n      \"advertiserLimits\": {\n        \"budgetDaily\": 6987.934834848306,\n        \"budgetMonthly\": 3659.243334236453\n      }\n    },\n    {\n      \"hash\": \"string\",\n      \"name\": \"string\",\n      \"creativeIds\": [\n        2683,\n        9993\n      ],\n      \"status\": \"ACTIVE\",\n      \"campaignType\": \"BRANDING\",\n      \"updatedAt\": \"string\",\n      \"rateCardId\": \"string\",\n      \"isEditable\": false,\n      \"advertiserLimits\": {\n        \"budgetDaily\": 2275.235515016457,\n        \"budgetMonthly\": 7518.068667419113\n      }\n    }\n  ],\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d79d1a7-4390-473b-97c8-da434b5afb99",
+          "name": "Update campaign status",
+          "request": {
+            "name": "Update campaign status",
+            "description": {
+              "content": "Update campaign status to ACTIVE or PAUSED. Putting isActive as True will make campaign's status change to ACTIVE, otherwise status will change to PAUSED.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "campaigns",
+                ":campaignHash",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "campaignHash",
+                  "description": "(Required) Campaign hash."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c010e12a-7ae7-4d60-85e6-b9c72bbf7c6e",
+              "name": "Updated campaign status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "campaigns",
+                    ":campaignHash",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "campaignHash",
+                      "description": "(Required) Campaign hash."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"isActive\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "267b4b20-64a5-48aa-86d6-97fa9fae5f6a",
+          "name": "Get list of bills",
+          "request": {
+            "name": "Get list of bills",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "billing"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dayFrom",
+                  "value": "<string>",
+                  "description": "Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayTo",
+                  "value": "<string>",
+                  "description": "Date in format \"YYYY-MM-DD\"."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19dacc8d-05cc-40f6-a6de-0989994df39f",
+              "name": "Billing records.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "billing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dayFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayTo",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"bills\": [\n      {\n        \"day\": \"1961-02-21\",\n        \"operation\": \"string\",\n        \"position\": 8797,\n        \"credit\": 7474.604319816168,\n        \"debit\": 6862.614719917595,\n        \"balance\": 2309.490106178076,\n        \"recordNumber\": 8353\n      },\n      {\n        \"day\": \"1992-07-08\",\n        \"operation\": \"string\",\n        \"position\": 171,\n        \"credit\": 2338.723064273206,\n        \"debit\": 7429.086027410654,\n        \"balance\": 1030.996019856517,\n        \"recordNumber\": 5871\n      }\n    ],\n    \"initialBalance\": 7667.899025986617\n  },\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bdc24866-d4ab-4de9-9330-a80393659535",
+          "name": "Get list of RTB creatives",
+          "request": {
+            "name": "Get list of RTB creatives",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "rtb-creatives"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "subcampaigns",
+                  "value": "<string>",
+                  "description": "By default, this means downloading all creatives. If the \"ANY\" value is given as a parameter, creatives that are pinned to any sub-campaigns (paused or active) will be selected. If \"ACTIVE\" is specified, creatives that are pinned to any active sub-campaigns will be selected. You can also enter campaign hashes. Multiple hash values can be combined using the \"-\" sign."
+                },
+                {
+                  "disabled": false,
+                  "key": "activeOnly",
+                  "value": "true",
+                  "description": "Should return only active creatives."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06c3aa44-34f9-4db5-8795-d1533d54a28d",
+              "name": "List of RTB creatives.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "rtb-creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "subcampaigns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "activeOnly",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"status\": \"string\",\n      \"hash\": \"string\",\n      \"names\": {\n        \"packBusiness\": \"string\",\n        \"business\": \"string\",\n        \"family\": \"string\"\n      },\n      \"previews\": [\n        {\n          \"width\": 9417,\n          \"height\": 8762,\n          \"offersNumber\": 4,\n          \"previewUrl\": \"string\"\n        },\n        {\n          \"width\": 4161,\n          \"height\": 1756,\n          \"offersNumber\": 693,\n          \"previewUrl\": \"string\"\n        }\n      ]\n    },\n    {\n      \"status\": \"string\",\n      \"hash\": \"string\",\n      \"names\": {\n        \"packBusiness\": \"string\",\n        \"business\": \"string\",\n        \"family\": \"string\"\n      },\n      \"previews\": [\n        {\n          \"width\": 9726,\n          \"height\": 8985,\n          \"offersNumber\": 9996,\n          \"previewUrl\": \"string\"\n        },\n        {\n          \"width\": 1437,\n          \"height\": 1461,\n          \"offersNumber\": 8536,\n          \"previewUrl\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7fec414d-265f-40df-a0b7-da82189d6fa6",
+          "name": "Get list of conversions",
+          "request": {
+            "name": "Get list of conversions",
+            "description": {
+              "content": "This endpoint accepts two types of queries. The first type of query is a query that includes all parameters except the cursor parameter. The result of such a query is a list of conversions and a cursor. Then, to ask for another list of conversions, you need to create a query containing cursor (the cursor returned from the previous query) and optionally limit parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "conversions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor returned with previous response."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "1000",
+                  "description": "How many rows should be returned at most."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayFrom",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "dayTo",
+                  "value": "<string>",
+                  "description": "(Required) Date in format \"YYYY-MM-DD\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "countConvention",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "subcampaigns",
+                  "value": "<string>",
+                  "description": "Hash of subcampaign. Multiple values may be concatenated using \"-\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "conversionIdentifier",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "conversionTime"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDirection",
+                  "value": "DESC"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2479f76b-b652-42e0-a779-e8e9f2afbd6b",
+              "name": "List of conversions with pagination cursor.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "conversions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "dayFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dayTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "countConvention",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subcampaigns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversionIdentifier",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "conversionTime"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"rows\": [\n      {\n        \"commissionValue\": 8550.771437209418,\n        \"conversionHash\": \"string\",\n        \"conversionIdentifier\": \"string\",\n        \"conversionTime\": \"string\",\n        \"conversionValue\": 5643.674462351457,\n        \"cookieHash\": \"string\",\n        \"lastClickTime\": \"string\",\n        \"lastImpressionTime\": \"string\",\n        \"conversionClass\": \"string\"\n      },\n      {\n        \"commissionValue\": 7606.251528076309,\n        \"conversionHash\": \"string\",\n        \"conversionIdentifier\": \"string\",\n        \"conversionTime\": \"string\",\n        \"conversionValue\": 9247.0775927167,\n        \"cookieHash\": \"string\",\n        \"lastClickTime\": \"string\",\n        \"lastImpressionTime\": \"string\",\n        \"conversionClass\": \"string\"\n      }\n    ],\n    \"total\": 1311,\n    \"nextCursor\": \"string\"\n  },\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c57d362-1ac3-4815-a2ee-17a3aefbd13c",
+          "name": "Get list of rate cards",
+          "request": {
+            "name": "Get list of rate cards",
+            "description": {},
+            "url": {
+              "path": [
+                "advertisers",
+                ":hash",
+                "rate-cards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Hash of advertiser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb2c078a-3b25-4c5a-be11-a557da9efe17",
+              "name": "Rate card details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":hash",
+                    "rate-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Hash of advertiser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"version\": \"string\",\n    \"cpc\": {\n      \"visitors\": 3155.853917858784,\n      \"shoppers\": 1921.386742013017,\n      \"buyers\": 2683.3609741264795\n    },\n    \"cpm\": {\n      \"visitors\": 1207.480318690175,\n      \"shoppers\": 2833.831786442348,\n      \"buyers\": 8675.569898473488\n    },\n    \"cpaPostClick\": {\n      \"visitors\": 437.21410128190416,\n      \"shoppers\": 7810.9634679907895,\n      \"buyers\": 9865.483160526655\n    },\n    \"cpaPostView\": {\n      \"visitors\": 1870.4546007964907,\n      \"shoppers\": 5843.929369372173,\n      \"buyers\": 7464.190491580137\n    },\n    \"cpsPostClick\": {\n      \"visitors\": 6551.6159350235985,\n      \"shoppers\": 5679.77139169776,\n      \"buyers\": 7630.9617648004805\n    },\n    \"cpsPostView\": {\n      \"visitors\": 9805.668679456538,\n      \"shoppers\": 2482.0746461950916,\n      \"buyers\": 9782.419609703982\n    }\n  },\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.panel.rtbhouse.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "849789f4-ff44-4cfa-b76f-21c27066f8ad",
+    "name": "Client's panel API docs Advertisers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RTB House Client Panel REST API for managing advertisers, campaigns, product offers, audiences,\nRTB creatives, conversions, and accessing performance statistics. Supports campaign management,\nbilling retrieval, and detailed analytics including RTB stats, win-rate stats, top hosts, and\ndeduplication stats.\n\nAuthentication scheme types:\n| Security Scheme Type      | HTTP   |\n| ------------------------- | ------ |\n| HTTP Authorization Scheme | Basic  |\n| HTTP Authorization Scheme | Bearer |\n",
+      "type": "text/plain"
+    }
+  }
+}

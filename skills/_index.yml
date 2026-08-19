@@ -1,0 +1,50 @@
+generated: '2026-08-13'
+method: generated
+source: openapi/_original/rtbhouse-client-panel-openapi.yml + conventions/, errors/,
+  rate-limits/, lifecycle/, data-model/ artifacts in this repo
+name: RTB House agent skills
+description: Packaged operating instructions for the RTB House Client Panel API v5, one
+  per marquee flow. Every step is grounded in an HTTP method + path that exists verbatim
+  in the published OpenAPI. The spec declares no operationId on any of its 23 operations,
+  so skills bind by method + path — no operation identifiers are invented.
+grounding_note: RTB House publishes no first-party AGENTS.md or skill files; searched the
+  docs host, both SDK repositories and the four public repos in github.com/rtbhouse-apps.
+skills:
+- file: rtbhouse-authenticate-and-rotate-token.md
+  name: Authenticate against the RTB House Client Panel API and keep the token alive
+  api: openapi/rtbhouse-user-api-openapi.yml, openapi/rtbhouse-tokens-api-openapi.yml
+  operations:
+  - GET /user/info
+  - POST /tokens/current/rotate
+  - GET /healthcheck
+- file: rtbhouse-pull-campaign-performance.md
+  name: Pull RTB House campaign performance statistics
+  api: openapi/rtbhouse-statistics-api-openapi.yml
+  operations:
+  - GET /advertisers
+  - GET /advertisers/{hash}/rtb-stats
+  - GET /advertisers/{hash}/summary-stats
+  - GET /advertisers-summary-stats
+  - GET /advertisers/{hash}/win-rate-stats
+  - GET /advertisers/{hash}/top-hosts-stats
+  - GET /advertisers/{hash}/top-in-apps-stats
+  - GET /advertisers/{hash}/last-seen-tags-stats
+  - GET /advertisers/{hash}/rtb-deduplication-stats
+- file: rtbhouse-reconcile-conversions-and-billing.md
+  name: Reconcile RTB House conversions against billing
+  api: openapi/rtbhouse-advertisers-api-openapi.yml
+  operations:
+  - GET /advertisers/{hash}/conversions
+  - GET /advertisers/{hash}/billing
+  - GET /advertisers/{hash}/rate-cards
+  - GET /advertisers/{hash}/client
+- file: rtbhouse-manage-campaign-and-offer-catalog.md
+  name: Inspect and control RTB House campaigns, creatives and the product offer catalog
+  api: openapi/rtbhouse-advertisers-api-openapi.yml
+  operations:
+  - GET /advertisers/{hash}/campaigns
+  - PUT /advertisers/{hash}/campaigns/{campaignHash}/status
+  - PUT /advertisers/{hash}/status
+  - GET /advertisers/{hash}/rtb-creatives
+  - GET /advertisers/{hash}/offer-categories
+  - GET /advertisers/{hash}/offers

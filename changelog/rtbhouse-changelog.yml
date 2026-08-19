@@ -1,0 +1,97 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/rtbhouse-apps/rtbhouse-python-sdk/blob/master/CHANGELOG.md
+  (entries) + https://pypi.org/pypi/rtbhouse-sdk/json (release dates)
+name: RTB House Client Panel API v5 change log
+description: RTB House publishes no API changelog on its developer surface — api.panel.rtbhouse.com/api/docs
+  renders the current spec with no history, and the corporate site has no release-notes
+  page. The only dated record of what changes in the v5 API is the first-party Python
+  SDK changelog, whose entries are API-level changes (metrics added, dimensions removed,
+  parameters added) rather than library-only churn. Entries below are transcribed from
+  that file; dates come from the matching PyPI release.
+canonical_changelog_url: https://github.com/rtbhouse-apps/rtbhouse-python-sdk/blob/master/CHANGELOG.md
+api_changelog_published: false
+api_changelog_note: This is the SDK's changelog standing in for an API changelog. A PHP
+  developer, or anyone not using the Python SDK, has no published record of API change.
+versioning:
+  api_scheme: uri-path (v5)
+  sdk_scheme: semver
+  breaking_change_marker: '[breaking change]'
+current_api_version: v5
+current_sdk_version: 16.1.0
+entries:
+- version: 16.1.0
+  date: '2026-07-15'
+  breaking: false
+  additions:
+  - Custom viewability stats metrics `viewabilityCustomViewability` and `evccpm`.
+- version: 16.0.0
+  date: '2026-06-10'
+  breaking: true
+  removals:
+  - Removed the `placement` dimension grouping usable with legacy DPA stats.
+- version: 15.1.0
+  date: '2026-05-04'
+  breaking: false
+  additions:
+  - API token authentication with automatic lifecycle management (ApiTokenAuth,
+    ApiTokenManager / AsyncApiTokenManager, pluggable ApiTokenStorage backends).
+  - CLI for token management — `python -m rtbhouse_sdk.api_tokens` with `init-json`
+    and `keep-alive-json`.
+  highlights: Tokens are minted in the Clients Panel at /user/api-tokens, must be used
+    to stay alive, and rotate through POST /tokens/current/rotate.
+- version: 15.0.0
+  date: '2026-01-08'
+  breaking: true
+  removals:
+  - Dropped Python 3.9 (end-of-life). Python 3.10+ required.
+- version: 14.2.1
+  date: '2025-06-23'
+  breaking: false
+- version: 14.2.0
+  date: '2025-02-26'
+  breaking: false
+- version: 14.1.0
+  date: '2024-12-30'
+  breaking: false
+- version: 14.0.0
+  date: '2024-12-02'
+  breaking: true
+  removals:
+  - Dropped Python 3.8 (end-of-life).
+  additions:
+  - Support for Python 3.12 and 3.13.
+- version: 13.0.0
+  date: '2024-09-24'
+  breaking: true
+  highlights: 'API metric rename with a dated sunset: `viewability` became
+    `ssp_viewability`, with a compatibility layer left in the API until 2024-12-31.'
+  additions:
+  - Audio metrics `audio_complete_listens`, `ecpl`, `acr`.
+  - Viewability metrics `viewability_measurability`, `viewability_viewability`, `evcpm`.
+  - Visits metrics `visits_count`, `cpvisit`.
+- version: 12.0.1
+  date: '2024-08-16'
+  breaking: false
+- version: 12.0.0
+  date: '2024-08-08'
+  breaking: true
+  highlights: Stats metrics `imps_count`, `clicks_count`, `conversions_count`,
+    `video_complete_views` became floats to reflect actual API responses (fractional
+    values occur with custom grouping or manual adjustment).
+- version: 11.1.0
+  date: '2023-12-06'
+  breaking: false
+  additions:
+  - '`utc_offset_hours` parameter for get_rtb_stats and get_summary_stats.'
+- version: 11.0.0
+  date: '2023-11-30'
+  breaking: true
+  highlights: Pydantic v2 support; `cookie_hash`, `last_click_time`, `last_impression_time`
+    on Conversion became nullable; field naming normalized to snake_case.
+php_sdk_changelog:
+  url: https://github.com/rtbhouse-apps/rtbhouse-php-sdk/blob/master/CHANGELOG.md
+  latest_version: 8.1.2
+  latest_date: '2026-03-12'
+  note: Tracks the same API but lags the Python SDK; 8.1.0 added `utcOffsetHours` to
+    getRtbStats/getSummaryStats, which Python received in 11.1.0 (2023-12-06).

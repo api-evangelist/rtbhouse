@@ -1,0 +1,120 @@
+{
+  "item": [
+    {
+      "id": "b46a7521-4d5b-4fee-aeaf-5e8d82f46027",
+      "name": "Dev",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7aad77d0-3245-40c5-a5b0-d708fbf24b33",
+          "name": "Check server status",
+          "request": {
+            "name": "Check server status",
+            "description": {},
+            "url": {
+              "path": [
+                "healthcheck"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eac013e0-144f-4cdc-b57c-ee691ae69b9a",
+              "name": "Return SUCCESS string.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthcheck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"SUCCESS\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.panel.rtbhouse.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c8c1db38-6af9-433d-b72f-7b6c6c662d8f",
+    "name": "Client's panel API docs Advertisers Dev API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RTB House Client Panel REST API for managing advertisers, campaigns, product offers, audiences,\nRTB creatives, conversions, and accessing performance statistics. Supports campaign management,\nbilling retrieval, and detailed analytics including RTB stats, win-rate stats, top hosts, and\ndeduplication stats.\n\nAuthentication scheme types:\n| Security Scheme Type      | HTTP   |\n| ------------------------- | ------ |\n| HTTP Authorization Scheme | Basic  |\n| HTTP Authorization Scheme | Bearer |\n",
+      "type": "text/plain"
+    }
+  }
+}
