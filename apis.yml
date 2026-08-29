@@ -2,6 +2,18 @@ aid: rtbhouse
 name: RTB House
 description: RTB House is a next-generation performance demand-side platform (DSP) that uses proprietary deep learning algorithms to power retargeting and programmatic advertising campaigns. The platform provides a REST API for managing advertisers, campaigns, product feeds, audiences, RTB creatives, conversions, and accessing detailed performance analytics. RTB House operates in 90+ markets and serves thousands of leading brands worldwide.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
