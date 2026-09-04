@@ -16,16 +16,18 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: enterprise
-  onboarding: self-serve
+  onboarding: approval
   trial: false
   try_now: false
   public: false
-  label: Enterprise · Self-serve signup
+  label: Enterprise · Requires approval
   confidence: high
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - rate-limits
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rtbhouse.png
 url: https://raw.githubusercontent.com/api-evangelist/rtbhouse/refs/heads/main/apis.yml
