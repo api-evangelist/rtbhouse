@@ -3,13 +3,10 @@
   "feeds": [
     {
       "source": "https://www.linkedin.com/company/rtb-house",
-      "feed_url": "https://www.linkedin.com/company/rtb-house",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-08-30T22:33:40Z",
+  "fetched": "2026-09-06T19:17:18Z",
   "post_count": 6,
   "agent_pulled": "2026-07-04",
   "feed_nature": "vendor-blog",
