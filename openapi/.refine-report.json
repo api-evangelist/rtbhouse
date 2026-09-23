@@ -1,11 +1,7 @@
 {
   "provider": "rtbhouse",
   "sources": [
-    "rtbhouse-advertisers-api-openapi.yml",
-    "rtbhouse-dev-api-openapi.yml",
-    "rtbhouse-statistics-api-openapi.yml",
-    "rtbhouse-tokens-api-openapi.yml",
-    "rtbhouse-user-api-openapi.yml"
+    "_original/rtbhouse-client-panel-openapi.yml"
   ],
   "outputs": [
     "rtbhouse-advertisers-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "rtbhouse-client-panel-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "rtbhouse-advertisers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rtbhouse-dev-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rtbhouse-statistics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rtbhouse-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rtbhouse-user-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

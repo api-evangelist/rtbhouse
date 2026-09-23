@@ -1,0 +1,27 @@
+# Front Door AI Index — rtbhouse — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: rtbhouse
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.rtbhouse.com
+  final_host: www.rtbhouse.com
+  ownership: own
+  owner: rtbhouse
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 8
+  host_score: 8
+  density: 10.51
+  words: 761
+  tiers:
+    agentic: 0
+    core: 8
+    model: 0
+  ambiguous: 0
+  top_terms:
+    deep learning: 6
+    AI: 1
+    LLMs: 1

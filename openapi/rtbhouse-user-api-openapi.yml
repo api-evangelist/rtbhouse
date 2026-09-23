@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Client's panel API docs Advertisers User API
+  title: Client's panel API docs User API
   version: v5
   description: 'RTB House Client Panel REST API for managing advertisers, campaigns, product offers, audiences,
 
@@ -13,15 +13,13 @@ info:
 
     Authentication scheme types:
 
-    | Security Scheme Type      | HTTP   |
+    | Security Scheme Type | HTTP |
 
     | ------------------------- | ------ |
 
-    | HTTP Authorization Scheme | Basic  |
+    | HTTP Authorization Scheme | Basic |
 
-    | HTTP Authorization Scheme | Bearer |
-
-    '
+    | HTTP Authorization Scheme | Bearer |'
 servers:
 - url: https://api.panel.rtbhouse.com/v5
 security:
@@ -74,6 +72,8 @@ paths:
                         type: array
                         items:
                           type: string
+      operationId: getUserInfo
+      x-operation-id-source: derived
 components:
   securitySchemes:
     bearerAuth:

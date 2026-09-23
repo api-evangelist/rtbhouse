@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   title: Client's panel API docs Advertisers API
   version: v5
@@ -13,15 +13,13 @@ info:
 
     Authentication scheme types:
 
-    | Security Scheme Type      | HTTP   |
+    | Security Scheme Type | HTTP |
 
     | ------------------------- | ------ |
 
-    | HTTP Authorization Scheme | Basic  |
+    | HTTP Authorization Scheme | Basic |
 
-    | HTTP Authorization Scheme | Bearer |
-
-    '
+    | HTTP Authorization Scheme | Bearer |'
 servers:
 - url: https://api.panel.rtbhouse.com/v5
 security:
@@ -139,6 +137,8 @@ paths:
                               description: Only if requested by a user who is a client user.
                               items:
                                 type: string
+      operationId: getAdvertisers
+      x-operation-id-source: derived
   /advertisers/{hash}:
     get:
       summary: Get advertiser details
@@ -269,6 +269,8 @@ paths:
                               enum:
                               - PERFORMANCE
                               - BRANDING
+      operationId: getAdvertisersByHash
+      x-operation-id-source: derived
   /advertisers/{hash}/status:
     put:
       summary: Update advertiser status
@@ -393,6 +395,8 @@ paths:
                                       type: boolean
                                     text:
                                       type: string
+      operationId: putAdvertisersByHashStatus
+      x-operation-id-source: derived
   /advertisers/{hash}/client:
     get:
       summary: Get client details
@@ -440,6 +444,8 @@ paths:
                             type: string
                           email:
                             type: string
+      operationId: getAdvertisersByHashClient
+      x-operation-id-source: derived
   /advertisers/{hash}/offer-categories:
     get:
       summary: Get list of offer categories
@@ -480,6 +486,8 @@ paths:
                           type: string
                         activeOffersNumber:
                           type: integer
+      operationId: getAdvertisersByHashOfferCategories
+      x-operation-id-source: derived
   /advertisers/{hash}/offers:
     get:
       summary: Get list of offers
@@ -586,6 +594,8 @@ paths:
                           enum:
                           - ACTIVE
                           - PAUSED
+      operationId: getAdvertisersByHashOffers
+      x-operation-id-source: derived
   /advertisers/{hash}/campaigns:
     get:
       summary: Get list of campaigns
@@ -667,6 +677,8 @@ paths:
                             budgetMonthly:
                               type: number
                               format: float
+      operationId: getAdvertisersByHashCampaigns
+      x-operation-id-source: derived
   /advertisers/{hash}/campaigns/{campaignHash}/status:
     put:
       summary: Update campaign status
@@ -704,6 +716,8 @@ paths:
                     - ok
                   data:
                     type: object
+      operationId: putAdvertisersByHashCampaignsByCampaignHashStatus
+      x-operation-id-source: derived
   /advertisers/{hash}/billing:
     get:
       summary: Get list of bills
@@ -778,6 +792,8 @@ paths:
                       initialBalance:
                         type: number
                         format: float
+      operationId: getAdvertisersByHashBilling
+      x-operation-id-source: derived
   /advertisers/{hash}/rtb-creatives:
     get:
       summary: Get list of RTB creatives
@@ -834,14 +850,17 @@ paths:
                           - family
                           properties:
                             packBusiness:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             business:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             family:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                         previews:
                           type: array
                           items:
@@ -860,6 +879,8 @@ paths:
                                 type: integer
                               previewUrl:
                                 type: string
+      operationId: getAdvertisersByHashRtbCreatives
+      x-operation-id-source: derived
   /advertisers/{hash}/conversions:
     get:
       summary: Get list of conversions
@@ -974,6 +995,8 @@ paths:
                               type: string
                             lastImpressionTime:
                               type: string
+      operationId: getAdvertisersByHashConversions
+      x-operation-id-source: derived
   /advertisers/{hash}/rate-cards:
     get:
       summary: Get list of rate cards
@@ -1091,10 +1114,26 @@ paths:
                             type: number
                           buyers:
                             type: number
+      operationId: getAdvertisersByHashRateCards
+      x-operation-id-source: derived
 components:
   parameters:
     dayToInQS:
       name: dayTo
+      in: query
+      description: Date in format "YYYY-MM-DD".
+      required: true
+      schema:
+        type: string
+    campaignHash:
+      name: campaignHash
+      in: path
+      description: Campaign hash.
+      required: true
+      schema:
+        type: string
+    dayFromInQS:
+      name: dayFrom
       in: query
       description: Date in format "YYYY-MM-DD".
       required: true
@@ -1111,20 +1150,6 @@ components:
       name: hash
       in: path
       description: Hash of advertiser.
-      required: true
-      schema:
-        type: string
-    campaignHash:
-      name: campaignHash
-      in: path
-      description: Campaign hash.
-      required: true
-      schema:
-        type: string
-    dayFromInQS:
-      name: dayFrom
-      in: query
-      description: Date in format "YYYY-MM-DD".
       required: true
       schema:
         type: string
