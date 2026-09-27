@@ -650,6 +650,20 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
+    advertiserHash:
+      name: hash
+      in: path
+      description: Hash of advertiser.
+      required: true
+      schema:
+        type: string
+    dayToInQS:
+      name: dayTo
+      in: query
+      description: Date in format "YYYY-MM-DD".
+      required: true
+      schema:
+        type: string
     subcampaigns:
       name: subcampaigns
       in: query
@@ -661,20 +675,6 @@ components:
       name: dayFrom
       in: query
       description: Date in format "YYYY-MM-DD".
-      required: true
-      schema:
-        type: string
-    dayToInQS:
-      name: dayTo
-      in: query
-      description: Date in format "YYYY-MM-DD".
-      required: true
-      schema:
-        type: string
-    advertiserHash:
-      name: hash
-      in: path
-      description: Hash of advertiser.
       required: true
       schema:
         type: string

@@ -1125,6 +1125,13 @@ components:
       required: true
       schema:
         type: string
+    dayFromInQS:
+      name: dayFrom
+      in: query
+      description: Date in format "YYYY-MM-DD".
+      required: true
+      schema:
+        type: string
     campaignHash:
       name: campaignHash
       in: path
@@ -1132,10 +1139,10 @@ components:
       required: true
       schema:
         type: string
-    dayFromInQS:
-      name: dayFrom
-      in: query
-      description: Date in format "YYYY-MM-DD".
+    advertiserHash:
+      name: hash
+      in: path
+      description: Hash of advertiser.
       required: true
       schema:
         type: string
@@ -1144,13 +1151,6 @@ components:
       in: query
       description: Hash of subcampaign. Multiple values may be concatenated using "-".
       required: false
-      schema:
-        type: string
-    advertiserHash:
-      name: hash
-      in: path
-      description: Hash of advertiser.
-      required: true
       schema:
         type: string
   securitySchemes:
