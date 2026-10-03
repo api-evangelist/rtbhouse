@@ -1118,10 +1118,24 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
-    dayToInQS:
-      name: dayTo
+    campaignHash:
+      name: campaignHash
+      in: path
+      description: Campaign hash.
+      required: true
+      schema:
+        type: string
+    subcampaigns:
+      name: subcampaigns
       in: query
-      description: Date in format "YYYY-MM-DD".
+      description: Hash of subcampaign. Multiple values may be concatenated using "-".
+      required: false
+      schema:
+        type: string
+    advertiserHash:
+      name: hash
+      in: path
+      description: Hash of advertiser.
       required: true
       schema:
         type: string
@@ -1132,25 +1146,11 @@ components:
       required: true
       schema:
         type: string
-    campaignHash:
-      name: campaignHash
-      in: path
-      description: Campaign hash.
-      required: true
-      schema:
-        type: string
-    advertiserHash:
-      name: hash
-      in: path
-      description: Hash of advertiser.
-      required: true
-      schema:
-        type: string
-    subcampaigns:
-      name: subcampaigns
+    dayToInQS:
+      name: dayTo
       in: query
-      description: Hash of subcampaign. Multiple values may be concatenated using "-".
-      required: false
+      description: Date in format "YYYY-MM-DD".
+      required: true
       schema:
         type: string
   securitySchemes:

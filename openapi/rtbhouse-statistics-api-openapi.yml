@@ -650,13 +650,6 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
-    advertiserHash:
-      name: hash
-      in: path
-      description: Hash of advertiser.
-      required: true
-      schema:
-        type: string
     dayToInQS:
       name: dayTo
       in: query
@@ -669,6 +662,13 @@ components:
       in: query
       description: Hash of subcampaign. Multiple values may be concatenated using "-".
       required: false
+      schema:
+        type: string
+    advertiserHash:
+      name: hash
+      in: path
+      description: Hash of advertiser.
+      required: true
       schema:
         type: string
     dayFromInQS:
