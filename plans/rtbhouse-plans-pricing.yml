@@ -59,3 +59,15 @@ evidence:
 notes: An API consumer cannot self-provision. A Client Panel login is issued by the RTB
   House account team, and the API token is minted afterwards at
   https://panel.rtbhouse.com/user/api-tokens.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Custom Campaign (contact sales)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
