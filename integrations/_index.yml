@@ -73,5 +73,5 @@
     - connectors/applications/rtb-house
     vendor_link: https://www.rtbhouse.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
