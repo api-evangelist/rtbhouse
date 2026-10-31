@@ -66,10 +66,168 @@
 
 RTB House is a next-generation performance demand-side platform (DSP) that uses proprietary deep learning algorithms to power retargeting and programmatic advertising campaigns. The platform provides a REST API for managing advertisers, campaigns, product feeds, audiences, RTB creatives, conversions, and accessing detailed performance analytics. RTB House operates in 90+ markets and serves thousands of leading brands worldwide.
 
-- **Website:** https://www.rtbhouse.com
-- **API Documentation:** https://api.panel.rtbhouse.com/api/docs
-- **OpenAPI Spec:** https://api.panel.rtbhouse.com/api/docs/openapi.yaml
-- **GitHub:** https://github.com/rtbhouse-apps
-- **Blog:** https://www.rtbhouse.com/blog
-- **LinkedIn:** https://www.linkedin.com/company/rtb-house
-- **X:** https://twitter.com/rtbhouse
+**Areas:** Advertising · Retargeting · Programmatic · DSP · Deep Learning · RTB · Performance Marketing
+
+## RTB House on APIs.io
+
+Everything profiled for RTB House is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/rtbhouse/](https://apis.io/providers/rtbhouse/)** — or go straight to one of the APIs or properties below.
+
+### APIs (5)
+
+- [RTB House Advertisers API](https://apis.io/apis/rtbhouse/rtbhouse-advertisers-api/) — The Advertisers API from RTB House — 12 operation(s) for advertisers.
+- [RTB House Dev API](https://apis.io/apis/rtbhouse/rtbhouse-dev-api/) — The Dev API from RTB House — 1 operation(s) for dev.
+- [RTB House Statistics API](https://apis.io/apis/rtbhouse/rtbhouse-statistics-api/) — The Statistics API from RTB House — 8 operation(s) for statistics.
+- [RTB House Tokens API](https://apis.io/apis/rtbhouse/rtbhouse-tokens-api/) — The Tokens API from RTB House — 1 operation(s) for tokens.
+- [RTB House User API](https://apis.io/apis/rtbhouse/rtbhouse-user-api/) — The User API from RTB House — 1 operation(s) for user.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Rtbhouse Agentic Access](https://apis.io/agentic-access/rtbhouse/rtbhouse-agentic-access/)
+
+#### JSON Schema (1)
+
+The data models the API reads and writes.
+
+- [Advertiser](https://apis.io/schemas/rtbhouse/rtbhouse-advertiser/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Rtbhouse Context](https://apis.io/jsonld/rtbhouse/rtbhouse-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Rtbhouse Vocabulary](https://apis.io/vocabularies/rtbhouse/rtbhouse-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Rtbhouse Advertiser Example](https://apis.io/examples/rtbhouse/rtbhouse-advertiser-example/)
+- [Rtbhouse Rtb Stats Example](https://apis.io/examples/rtbhouse/rtbhouse-rtb-stats-example/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [Client's panel API docs Advertisers API](https://apis.io/collections/rtbhouse/open-rtbhouse-advertisers-api/)
+- [Client's panel API docs Advertisers Dev API](https://apis.io/collections/rtbhouse/open-rtbhouse-dev-api/)
+- [Client's panel API docs Advertisers Statistics API](https://apis.io/collections/rtbhouse/open-rtbhouse-statistics-api/)
+- [Client's panel API docs Advertisers Tokens API](https://apis.io/collections/rtbhouse/open-rtbhouse-tokens-api/)
+- [Client's panel API docs Advertisers User API](https://apis.io/collections/rtbhouse/open-rtbhouse-user-api/)
+
+#### Overlays (5)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Rtbhouse Advertisers Api Overlay](https://apis.io/overlays/rtbhouse/rtbhouse-advertisers-api-overlay/)
+- [Rtbhouse Dev Api Overlay](https://apis.io/overlays/rtbhouse/rtbhouse-dev-api-overlay/)
+- [Rtbhouse Statistics Api Overlay](https://apis.io/overlays/rtbhouse/rtbhouse-statistics-api-overlay/)
+- [Rtbhouse Tokens Api Overlay](https://apis.io/overlays/rtbhouse/rtbhouse-tokens-api-overlay/)
+- [Rtbhouse User Api Overlay](https://apis.io/overlays/rtbhouse/rtbhouse-user-api-overlay/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [RTB House — jsonschema rules](https://apis.io/rules/rtbhouse/rtbhouse-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Rtbhouse Authentication](https://apis.io/security/rtbhouse/rtbhouse-authentication/)
+- [Rtbhouse Domain Security](https://apis.io/security/rtbhouse/rtbhouse-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Rtbhouse Plans Pricing](https://apis.io/plans/rtbhouse/rtbhouse-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Rtbhouse Rate Limits](https://apis.io/rate-limits/rtbhouse/rtbhouse-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Rtbhouse Finops](https://apis.io/finops/rtbhouse/rtbhouse-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.rtbhouse.com)
+- [Documentation](https://api.panel.rtbhouse.com/api/docs)
+- [API reference](https://api.panel.rtbhouse.com/api/redoc)
+- [Support](https://www.rtbhouse.com/contact)
+- [Blog](https://www.rtbhouse.com/blog)
+- [Privacy policy](https://www.rtbhouse.com/privacy-center/web-privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 42.3** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 49.6 |
+| Contract governance | 14.4 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 51.8 |
+| Access clarity | 38.2 |
+
+**Agent readiness 26.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/rtbhouse/](https://apis.io/providers/rtbhouse/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for RTB House: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/rtbhouse/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
